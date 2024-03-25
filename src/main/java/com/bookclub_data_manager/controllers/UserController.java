@@ -82,7 +82,6 @@ public class UserController {
          } else {
              return new ResponseEntity("Неверный пароль", HttpStatus.BAD_REQUEST);
          }
-
     }
 
 

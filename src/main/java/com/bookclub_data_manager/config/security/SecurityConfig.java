@@ -34,7 +34,7 @@ public class SecurityConfig {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> auth
-                    .requestMatchers("/", "app/user/**", "/test").permitAll()
+                    .requestMatchers("/", "app/user/**", "app/book/**").permitAll()
                     .anyRequest().authenticated())
                 .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(
