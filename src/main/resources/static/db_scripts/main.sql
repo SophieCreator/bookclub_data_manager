@@ -7,7 +7,6 @@ CREATE USER 'veris'@'localhost' IDENTIFIED BY 'qwerty';
 GRANT ALL PRIVILEGES ON data_manager.* TO 'veris'@'localhost';
 FLUSH PRIVILEGES;
 
--- User table structure;
 CREATE TABLE users(
     user_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL,
@@ -66,9 +65,8 @@ CREATE TABLE favourite_genres(
 CREATE TABLE meetings(
     meeting_id INT NOT NULL AUTO_INCREMENT,
     book_id INT NOT NULL,
-    place ,
-    litres_rating FLOAT,
-    live_lib_rating FLOAT,
+    place VARCHAR(40) NOT NULL UNIQUE,
+    datetime DATE NOT NULL,
+    price INT NOT NULL,
     PRIMARY KEY(meeting_id)
-
 );

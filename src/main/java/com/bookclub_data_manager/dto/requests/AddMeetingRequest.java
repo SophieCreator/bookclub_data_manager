@@ -1,18 +1,19 @@
 package com.bookclub_data_manager.dto.requests;
 
 import java.util.Date;
+import java.util.List;
 
 public class AddMeetingRequest {
 
     private String book_name;
-    private String author;
+    private List<String> author;
     private String place;
     private Date datetime;
     private int price;
 
-    public String getAuthor() { return author; }
+    public List<String> getAuthor() { return author; }
 
-    public void setAuthor(String author) { this.author = author; }
+    public void setAuthor(List<String> author) { this.author = author; }
 
     public String getBook_name() { return book_name; }
 

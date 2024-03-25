@@ -11,10 +11,9 @@ public class MeetingService {
     @Autowired
     private MeetingRepository meetingRepository;
 
-    public String add(String book_name, String place, Date datetime, int price) {
+    public String add(Integer book_id, String place, Date datetime, int price) {
 
+        return String.valueOf(meetingRepository.addMeeting(book_id, place, datetime, price));
 
-
-        return String.valueOf(meetingRepository.addMeeting(book_id, place, datetime, price);
     }
 }
