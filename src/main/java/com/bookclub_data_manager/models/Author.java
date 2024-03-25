@@ -7,8 +7,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "authors")
 public class Author {
+
     @Id
     private int author_id;
+
     private String name;
 
     public int getAuthor_id() {

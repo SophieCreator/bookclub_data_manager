@@ -7,8 +7,10 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "genres")
 public class Genre {
+
     @Id
     private int genre_id;
+
     private String name;
 
     public int getGenre_id() {

@@ -62,4 +62,13 @@ CREATE TABLE favourite_authors(
 CREATE TABLE favourite_genres(
     genre_id INT NOT NULL,
     user_id INT NOT NULL
+
+CREATE TABLE meetings(
+    meeting_id INT NOT NULL AUTO_INCREMENT,
+    book_id INT NOT NULL,
+    place ,
+    litres_rating FLOAT,
+    live_lib_rating FLOAT,
+    PRIMARY KEY(meeting_id)
+
 );

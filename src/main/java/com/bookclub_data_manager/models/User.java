@@ -13,6 +13,7 @@ public class User {
 
     @Id
     private int user_id;
+
     private String name;
     private String login;
     private String email;
@@ -67,4 +68,3 @@ public class User {
         this.is_admin = is_admin;
     }
 }
-// END OF USER MODEL CLASS.
