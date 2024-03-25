@@ -1,8 +1,6 @@
 package com.bookclub_data_manager.repository;
 
-import com.bookclub_data_manager.models.Author;
 import com.bookclub_data_manager.models.Book;
-import com.bookclub_data_manager.models.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BookRepository extends CrudRepository<User, Integer> {
+public interface BookRepository extends CrudRepository<Book, Integer> {
 
     @Query(value = "SELECT * FROM books", nativeQuery = true)
     List<Book> getAllBooks();

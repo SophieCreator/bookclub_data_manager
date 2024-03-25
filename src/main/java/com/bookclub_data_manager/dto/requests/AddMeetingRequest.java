@@ -1,6 +1,6 @@
 package com.bookclub_data_manager.dto.requests;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class AddMeetingRequest {

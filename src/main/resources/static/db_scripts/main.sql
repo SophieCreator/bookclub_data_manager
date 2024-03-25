@@ -61,6 +61,7 @@ CREATE TABLE favourite_authors(
 CREATE TABLE favourite_genres(
     genre_id INT NOT NULL,
     user_id INT NOT NULL
+);
 
 CREATE TABLE meetings(
     meeting_id INT NOT NULL AUTO_INCREMENT,

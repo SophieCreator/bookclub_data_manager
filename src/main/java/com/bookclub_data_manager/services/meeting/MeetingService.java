@@ -3,7 +3,7 @@ import com.bookclub_data_manager.repository.MeetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Service
 public class MeetingService {
