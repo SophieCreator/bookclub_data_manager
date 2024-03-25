@@ -21,23 +21,41 @@ public interface BookRepository extends CrudRepository<User, Integer> {
     @Query(value = "SELECT name FROM books WHERE name = :name", nativeQuery = true)
     List<String> doesBookExists(@Param("name")String name);
 
+    @Query(value = "SELECT book_id FROM books WHERE book_id = :book_id", nativeQuery = true)
+    List<String> doesBookExists(@Param("book_id")int book_id);
+
     @Query(value = "SELECT book_id FROM books WHERE name = :name", nativeQuery = true)
-    int getIdByName(@Param("name")String name);
+    Integer getIdByName(@Param("name")String name);
 
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO book_and_author (book_id, author_id) VALUES (:book_id, :author_id)", nativeQuery = true)
-    int setBookAndAuthor(@Param("book_id")int book_id, @Param("author_id")int author_id);
+    Integer setBookAndAuthor(@Param("book_id")int book_id, @Param("author_id")int author_id);
 
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO book_and_genre (book_id, genre_id) VALUES (:book_id, :genre_id)", nativeQuery = true)
-    int setBookAndGenre(@Param("book_id")int book_id, @Param("genre_id")int genre_id);
+    Integer setBookAndGenre(@Param("book_id")int book_id, @Param("genre_id")int genre_id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM book_and_author WHERE book_id = :book_id", nativeQuery = true)
+    Integer unsetBookAndAuthor(@Param("book_id")int book_id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM book_and_genre WHERE book_id = :book_id", nativeQuery = true)
+    Integer unsetBookAndGenre(@Param("book_id")int book_id);
+
 
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO books (name, pages, litres_rating, live_lib_rating) VALUES (:name, :pages, :litres_rating, :live_lib_rating)", nativeQuery = true)
-    int add(@Param("name")String name, @Param("pages")int pages, @Param("litres_rating")float litres_rating, @Param("live_lib_rating")float live_lib_rating);
+    Integer add(@Param("name")String name, @Param("pages")Integer pages, @Param("litres_rating")Float litres_rating, @Param("live_lib_rating")Float live_lib_rating);
 
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM books WHERE book_id = :book_id", nativeQuery = true)
+    Integer deleteById(@Param("book_id")int book_id);
 
 }

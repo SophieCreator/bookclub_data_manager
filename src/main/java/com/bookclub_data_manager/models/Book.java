@@ -12,9 +12,9 @@ public class Book {
     private int book_id;
 
     private String name;
-    private int pages;
-    private float litres_rating;
-    private float live_lib_rating;
+    private Integer pages;
+    private Float litres_rating;
+    private Float live_lib_rating;
 
     public int getBook_id() {
         return book_id;

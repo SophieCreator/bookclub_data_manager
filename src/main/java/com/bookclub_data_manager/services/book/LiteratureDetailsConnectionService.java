@@ -30,4 +30,10 @@ public class LiteratureDetailsConnectionService {
         return "1";
     }
 
+    public String unset(Integer bookId){
+        bookRepository.unsetBookAndAuthor(bookId);
+        bookRepository.unsetBookAndAuthor(bookId);
+        return "1";
+    }
+
 }

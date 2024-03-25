@@ -53,11 +53,27 @@ public class BookController {
 
         String connectionSet = literatureDetailsConnectionService.set(bookId, authors, genres);
 
-        if(Objects.equals(literatureDetailsConnectionService, "1")){
-            return new ResponseEntity("Книга успешно добавлена", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity("Книга успешно добавлена", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity deleteBook(@RequestParam int bookId){
+
+        String book_is_pushed = bookService.deleteById(bookId);
+
+        if(!Objects.equals(book_is_pushed, "1")){
+            return new ResponseEntity(book_is_pushed, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity("Книга успешно добавлена", HttpStatus.CREATED);
+        String author_is_pushed = "";
+
+        String connectionUnSet = literatureDetailsConnectionService.unset(bookId);
+
+        if(!Objects.equals(connectionUnSet, "1")){
+            return new ResponseEntity("Книга не удалена", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity("Книга успешно удалена", HttpStatus.OK);
 
     }
 
