@@ -17,10 +17,10 @@ import java.util.Objects;
 public class MeetingController {
 
     @Autowired
-    private MeetingService meetingService;
+    MeetingService meetingService;
 
     @Autowired
-    private BookService bookService;
+    BookService bookService;
 
     @PostMapping("/add")
     public ResponseEntity add(@RequestBody AddMeetingRequest addMeetingRequest){
