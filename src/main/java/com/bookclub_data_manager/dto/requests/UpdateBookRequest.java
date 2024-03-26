@@ -4,7 +4,7 @@ import java.util.List;
 
 public class UpdateBookRequest {
 
-    int book_id;
+    private int book_id;
 
     private String name;
     private Integer pages;
