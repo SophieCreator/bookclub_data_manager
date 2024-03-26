@@ -67,18 +67,22 @@ public class MeetingController {
     public ResponseEntity update(@RequestBody UpdateMeetingRequest updateMeetingRequest) {
         int meeting_id = updateMeetingRequest.getMeeting_id();
         String book_name = updateMeetingRequest.getBook_name();
+        List<String> author = updateMeetingRequest.getAuthor();
         String place = updateMeetingRequest.getPlace();
         Date datetime = updateMeetingRequest.getDatetime();
         int price = updateMeetingRequest.getPrice();
 
-
         Integer book_id = bookService.getIdByName(book_name);
-        String request = meetingService.updateMeeting(meeting_id, book_id, place, datetime, price);
+
+        String request = meetingService.updateMeeting(place, datetime, price, meeting_id);
+        String request1 = bookCardService.updateOnlyBookNameAndAuthor(book_id, book_name, author);
 
         if (Objects.equals(request, "OK")) {
             return new ResponseEntity("Информация о встрече успешно обновлена", HttpStatus.OK);
+        } else if (Objects.equals(request1, "OK")){
+            return new ResponseEntity("Информация о встрече успешно обновлена", HttpStatus.OK);
         } else {
-            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(request1, HttpStatus.BAD_REQUEST);
         }
     }
 }

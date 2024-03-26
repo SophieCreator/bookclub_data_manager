@@ -1,8 +1,6 @@
 package com.bookclub_data_manager.services.book;
 
-import com.bookclub_data_manager.repository.AuthorRepository;
 import com.bookclub_data_manager.repository.BookRepository;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
