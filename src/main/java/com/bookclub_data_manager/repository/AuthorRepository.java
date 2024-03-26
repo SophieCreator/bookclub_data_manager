@@ -28,16 +28,16 @@ public interface AuthorRepository extends CrudRepository<Author, Integer> {
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO authors (name) VALUES (:name)", nativeQuery = true)
-    int add(@Param("name")String name);
+    void add(@Param("name")String name);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM authors WHERE author_id = :author_id", nativeQuery = true)
-    int deleteById(@Param("author_id")int author_id);
+    void deleteById(@Param("author_id")int author_id);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE books SET name = :name WHERE author_id = :author_id", nativeQuery = true)
-    int updateName(@Param("name")String name, @Param("author_id")int author_id);
+    @Query(value = "UPDATE authors SET name = :name WHERE author_id = :author_id", nativeQuery = true)
+    void update(@Param("name")String name, @Param("author_id")int author_id);
 
 }

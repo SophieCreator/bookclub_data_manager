@@ -10,7 +10,6 @@ public class Genre {
 
     @Id
     private int genre_id;
-
     private String name;
 
     public int getGenre_id() {

@@ -1,9 +1,10 @@
 package com.bookclub_data_manager.controllers;
 
 import com.bookclub_data_manager.dto.requests.AddBookRequest;
+import com.bookclub_data_manager.dto.requests.UpdateBookRequest;
 import com.bookclub_data_manager.services.book.AuthorService;
+import com.bookclub_data_manager.services.book.BookCardService;
 import com.bookclub_data_manager.services.book.BookService;
-import com.bookclub_data_manager.services.book.LiteratureDetailsConnectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class BookController {
     AuthorService authorService;
 
     @Autowired
-    LiteratureDetailsConnectionService literatureDetailsConnectionService;
+    BookCardService bookCardService;
 
 
     @PostMapping("/add")
@@ -30,51 +31,46 @@ public class BookController {
         String name = addBookRequest.getName();;
         List<String> authors = addBookRequest.getAuthors();
         List<String> genres = addBookRequest.getGenres();
-        int pages = addBookRequest.getPages();
-        float litres_rating = addBookRequest.getLitres_rating();
-        float live_lib_rating = addBookRequest.getLive_lib_rating();
+        Integer pages = addBookRequest.getPages();
+        Float litres_rating = addBookRequest.getLitres_rating();
+        Float live_lib_rating = addBookRequest.getLive_lib_rating();
 
-        String book_is_pushed = bookService.add(name, pages, litres_rating, live_lib_rating);
-
-        if(!Objects.equals(book_is_pushed, "1")){
-            return new ResponseEntity(book_is_pushed, HttpStatus.BAD_REQUEST);
+        String request = bookCardService.addBookAuthorGenre(name, pages, litres_rating, live_lib_rating, authors, genres);
+        if (Objects.equals(request, "OK")) {
+            return new ResponseEntity("Книга успешно добавлена", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
         }
-
-        String author_is_pushed = "";
-
-        for (int i = 0; i < authors.size(); i++){
-            author_is_pushed = authorService.add(authors.get(i));
-        }
-
-        if(!Objects.equals(author_is_pushed, "1")){
-            return new ResponseEntity(author_is_pushed, HttpStatus.BAD_REQUEST);
-        }
-        int bookId = bookService.getIdByName(name);
-
-        String connectionSet = literatureDetailsConnectionService.set(bookId, authors, genres);
-
-        return new ResponseEntity("Книга успешно добавлена", HttpStatus.CREATED);
     }
 
     @PostMapping("/delete")
     public ResponseEntity deleteBook(@RequestParam int bookId){
 
-        String book_is_pushed = bookService.deleteById(bookId);
-
-        if(!Objects.equals(book_is_pushed, "1")){
-            return new ResponseEntity(book_is_pushed, HttpStatus.BAD_REQUEST);
+        String request = bookCardService.deleteBookById(bookId);
+        if(Objects.equals(request, "OK")){
+            return new ResponseEntity("Книга успешно удалена", HttpStatus.OK);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
         }
+    }
 
-        String author_is_pushed = "";
+    @PostMapping("/update")
+    public ResponseEntity updateBook(@RequestBody UpdateBookRequest updateBookRequest){
+        int book_id = updateBookRequest.getBook_id();
+        String name = updateBookRequest.getName();
+        List<String> authors = updateBookRequest.getAuthors();
+        List<String> genres = updateBookRequest.getGenres();
+        Integer pages = updateBookRequest.getPages();
+        Float litres_rating = updateBookRequest.getLitres_rating();
+        Float live_lib_rating = updateBookRequest.getLive_lib_rating();
 
-        String connectionUnSet = literatureDetailsConnectionService.unset(bookId);
+        String request = bookCardService.updateBookAuthorGenre(book_id, name, pages, litres_rating, live_lib_rating, authors, genres);
 
-        if(!Objects.equals(connectionUnSet, "1")){
-            return new ResponseEntity("Книга не удалена", HttpStatus.BAD_REQUEST);
+        if(Objects.equals(request, "OK")){
+            return new ResponseEntity("Книга успешно обновлена", HttpStatus.OK);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
         }
-
-        return new ResponseEntity("Книга успешно удалена", HttpStatus.OK);
-
     }
 
 }

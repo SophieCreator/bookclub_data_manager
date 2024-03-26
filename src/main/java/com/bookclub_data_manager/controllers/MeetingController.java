@@ -1,6 +1,7 @@
 package com.bookclub_data_manager.controllers;
 
 import com.bookclub_data_manager.dto.requests.AddMeetingRequest;
+import com.bookclub_data_manager.services.book.BookCardService;
 import com.bookclub_data_manager.services.book.BookService;
 import com.bookclub_data_manager.services.meeting.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class MeetingController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private BookCardService bookCardService;
+
     @PostMapping("/add")
     public ResponseEntity add(@RequestBody AddMeetingRequest addMeetingRequest){
 
@@ -34,7 +38,7 @@ public class MeetingController {
         Integer book_id = bookService.getIdByName(book_name);
 
         if (book_id == null) {
-            bookService.addByNameAndAuthor(book_name, author);
+            bookCardService.addOnlyBookNameAndAuthor(book_name, author);
         }
 
         String addMeeting = meetingService.add(book_id, place, datetime, price);

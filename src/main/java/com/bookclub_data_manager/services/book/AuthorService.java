@@ -2,6 +2,7 @@ package com.bookclub_data_manager.services.book;
 
 import com.bookclub_data_manager.repository.AuthorRepository;
 import com.bookclub_data_manager.repository.BookRepository;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +14,52 @@ public class AuthorService {
     @Autowired
     AuthorRepository authorRepository;
 
-    List<String> doesAuthorExists(String name){
+    public List<String> doesAuthorExists(String name){
         return authorRepository.doesAuthorExists(name);
     }
 
-    Integer getIdByName(String name){
+    public Integer getIdByName(String name){
         return authorRepository.getIdByName(name);
+    }
+    public String update(String author, int author_id){
+        authorRepository.update(author, author_id);
+        return "OK";
+    }
+
+    public String updateList(List<String> authors, List<Integer> ids){
+        if (authors.isEmpty()){
+            return "No author";
+        }
+        if (ids.isEmpty()){
+            return "No author";
+        }
+        for (int i = 0; i < authors.size(); i++){
+            String author = authors.get(i);
+            Integer id = ids.get(i);
+            update(author, id);
+        }
+        return "OK";
     }
 
     public String add(String name) {
-        if (doesAuthorExists(name).isEmpty())
-        {
-            return String.valueOf((authorRepository.add(name)));
+        if (name == null){
+            return "cannot add empty name";
         }
-        return "1";
+        if (!doesAuthorExists(name).isEmpty())
+        {
+            return "OK";
+        }
+        authorRepository.add(name);
+        return "OK";
+    }
+
+    public String addList(List<String> names){
+        if (names.isEmpty()){
+            return "cannot add empty list";
+        }
+        for (String name : names){
+             add(name);
+        }
+        return "OK";
     }
 }

@@ -13,11 +13,6 @@ public class BookService {
     @Autowired
     BookRepository bookRepository;
 
-    @Autowired
-    AuthorRepository authorRepository;
-    @Autowired
-    LiteratureDetailsConnectionService literatureDetailsConnectionService;
-
     List<String> doesBookExists(String name){
         return bookRepository.doesBookExists(name);
     }
@@ -25,33 +20,32 @@ public class BookService {
     List<String> doesBookExists(int id){
         return bookRepository.doesBookExists(id);
     }
+    public Integer getIdByName(String name){
+        return bookRepository.getIdByName(name);
+    }
 
     public String add(String name, Integer pages, Float litres_rating, Float live_lib_rating){
         if(!doesBookExists(name).isEmpty()){
             return "Книга уже есть в списке";
         }
-        return String.valueOf(bookRepository.add(name, pages, litres_rating, live_lib_rating));
+        bookRepository.add(name, pages, litres_rating, live_lib_rating);
+        return "OK";
     }
 
-    public String addByNameAndAuthor(String name, List<String> authors){
-        add(name, null, null, null);
-        for (String author : authors) {
-            authorRepository.add(author);
+    public String update(String name, Integer pages, Float litres_rating, Float live_lib_rating, int bookId){
+        if (name == null){
+            return "Поле название должно быть заполнено";
         }
-        literatureDetailsConnectionService.set(bookRepository.getIdByName(name), authors, null);
-        return "1";
+        bookRepository.updateById(name, pages, litres_rating, live_lib_rating, bookId);
+        return "OK";
     }
 
     public String deleteById(int bookId){
         if(doesBookExists(bookId).isEmpty()){
-            return "Книги нет в списке";
+            return "Книги c таким идентификатором нет в списке";
         }
-        return String.valueOf(bookRepository.deleteById(bookId));
-    }
-
-
-    public Integer getIdByName(String name){
-        return bookRepository.getIdByName(name);
+        bookRepository.deleteById(bookId);
+        return "OK";
     }
 
 }
