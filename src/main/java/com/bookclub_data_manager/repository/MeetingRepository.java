@@ -14,8 +14,11 @@ import java.util.List;
 @Repository
 public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
 
+    @Query(value = "SELECT * FROM meetings WHERE meeting_id = :meeting_id", nativeQuery = true)
+    Meeting getMeetingById(@Param("meeting_id") int meeting_id);
+
     @Query(value = "SELECT * FROM meetings", nativeQuery = true)
-    List<Meeting> getAllMeetings(@Param("meeting_id")int meeting_id);
+    List<Meeting> getAllMeetings();
 
     @Modifying
     @Transactional

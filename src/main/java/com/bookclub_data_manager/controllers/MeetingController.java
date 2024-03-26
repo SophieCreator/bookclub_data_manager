@@ -65,6 +65,7 @@ public class MeetingController {
 
     @PostMapping("/update")
     public ResponseEntity update(@RequestBody UpdateMeetingRequest updateMeetingRequest) {
+
         int meeting_id = updateMeetingRequest.getMeeting_id();
         String book_name = updateMeetingRequest.getBook_name();
         List<String> author = updateMeetingRequest.getAuthor();
@@ -85,4 +86,17 @@ public class MeetingController {
             return new ResponseEntity(request1, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/get")
+    public ResponseEntity update(@RequestParam int meeting_id) {
+
+        String request = meetingService.getMeeting(meeting_id);
+
+        if (!Objects.equals(request, "OK")) {
+            return new ResponseEntity("Данных о встрече нет", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

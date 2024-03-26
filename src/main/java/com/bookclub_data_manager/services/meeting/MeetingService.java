@@ -25,4 +25,9 @@ public class MeetingService {
         meetingRepository.updateMeetingBook(place, datetime, price, meeting_id);
         return "OK";
     }
+
+    public String getMeeting(int meeting_id) {
+
+        return "OK";
+    }
 }
