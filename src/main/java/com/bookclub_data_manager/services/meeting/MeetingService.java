@@ -9,11 +9,20 @@ import java.sql.Date;
 public class MeetingService {
 
     @Autowired
-    private MeetingRepository meetingRepository;
+    MeetingRepository meetingRepository;
 
     public String add(Integer book_id, String place, Date datetime, int price) {
+        meetingRepository.addMeeting(book_id, place, datetime, price);
+        return "OK";
+    }
 
-        return String.valueOf(meetingRepository.addMeeting(book_id, place, datetime, price));
+    public String deleteMeetingById(int meeting_id) {
+        meetingRepository.deleteMeetingById(meeting_id);
+        return "OK";
+    }
 
+    public String updateMeeting(int meeting_id, int book_id, String place, Date datetime, int price) {
+        meetingRepository.updateMeetingBook(book_id, place, datetime, price);
+        return "OK";
     }
 }

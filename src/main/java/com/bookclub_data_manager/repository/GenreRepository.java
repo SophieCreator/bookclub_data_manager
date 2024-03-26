@@ -29,5 +29,4 @@ public interface GenreRepository extends CrudRepository<Genre, Integer> {
     @Query(value = "UPDATE genres SET name = :name WHERE genre_id = :genre_id", nativeQuery = true)
     void update(@Param("name")String name, @Param("genre_id")int genre_id);
 
-
 }

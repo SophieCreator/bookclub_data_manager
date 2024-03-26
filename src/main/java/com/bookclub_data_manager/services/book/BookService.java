@@ -34,7 +34,7 @@ public class BookService {
 
     public String update(String name, Integer pages, Float litres_rating, Float live_lib_rating, int bookId){
         if (name == null){
-            return "Поле название должно быть заполнено";
+            return "Поле названия должно быть заполнено";
         }
         bookRepository.updateById(name, pages, litres_rating, live_lib_rating, bookId);
         return "OK";

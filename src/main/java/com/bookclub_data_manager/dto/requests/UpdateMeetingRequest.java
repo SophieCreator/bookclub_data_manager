@@ -1,22 +1,23 @@
-package com.bookclub_data_manager.models;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+package com.bookclub_data_manager.dto.requests;
 
 import java.sql.Date;
 
-@Entity
-@Table(name = "meetings")
-public class Meeting {
+public class UpdateMeetingRequest {
 
-    @Id
     private int meeting_id;
 
-    private int book_id;
+    private String book_name;
     private String place;
     private Date datetime;
     private int price;
+
+    public String getBook_name() {
+        return book_name;
+    }
+
+    public void setBook_name(String book_name) {
+        this.book_name = book_name;
+    }
 
     public int getMeeting_id() {
         return meeting_id;
@@ -24,14 +25,6 @@ public class Meeting {
 
     public void setMeeting_id(int meeting_id) {
         this.meeting_id = meeting_id;
-    }
-
-    public int getBook_id() {
-        return book_id;
-    }
-
-    public void setBook_id(int book_id) {
-        this.book_id = book_id;
     }
 
     public String getPlace() {

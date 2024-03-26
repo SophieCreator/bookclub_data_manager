@@ -71,3 +71,12 @@ CREATE TABLE meetings(
     price INT NOT NULL,
     PRIMARY KEY(meeting_id)
 );
+
+CREATE TABLE records(
+    meeting_id INT NOT NULL,
+    user_id INT NOT NULL,
+    is_passed BOOLEAN,
+    rating FLOAT,
+    price INT NOT NULL,
+    FOREIGN KEY(meeting_id, user_id)
+);

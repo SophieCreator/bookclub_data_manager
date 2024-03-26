@@ -34,6 +34,7 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
     @Transactional
     @Query(value = "DELETE FROM books WHERE book_id = :book_id", nativeQuery = true)
     void deleteById(@Param("book_id")int book_id);
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE books SET name = :name, pages = :pages, litres_rating = :litres_rating, live_lib_rating = :live_lib_rating  WHERE book_id = :book_id", nativeQuery = true)

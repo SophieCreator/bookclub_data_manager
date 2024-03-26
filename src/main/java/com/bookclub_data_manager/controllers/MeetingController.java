@@ -1,6 +1,7 @@
 package com.bookclub_data_manager.controllers;
 
 import com.bookclub_data_manager.dto.requests.AddMeetingRequest;
+import com.bookclub_data_manager.dto.requests.UpdateMeetingRequest;
 import com.bookclub_data_manager.services.book.BookCardService;
 import com.bookclub_data_manager.services.book.BookService;
 import com.bookclub_data_manager.services.meeting.MeetingService;
@@ -24,7 +25,7 @@ public class MeetingController {
     BookService bookService;
 
     @Autowired
-    private BookCardService bookCardService;
+    BookCardService bookCardService;
 
     @PostMapping("/add")
     public ResponseEntity add(@RequestBody AddMeetingRequest addMeetingRequest){
@@ -41,12 +42,43 @@ public class MeetingController {
             bookCardService.addOnlyBookNameAndAuthor(book_name, author);
         }
 
-        String addMeeting = meetingService.add(book_id, place, datetime, price);
+        String request = meetingService.add(book_id, place, datetime, price);
 
-        if (!Objects.equals(addMeeting, "1")){
-            return new ResponseEntity(addMeeting, HttpStatus.BAD_REQUEST);
+        if (Objects.equals(request, "OK")){
+            return new ResponseEntity("Информация о встрече добавлена!", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity("Информация о встрече добавлена!", HttpStatus.CREATED);
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity delete(@RequestParam int meeting_id){
+
+        String request = meetingService.deleteMeetingById(meeting_id);
+
+        if (Objects.equals(request, "OK")) {
+            return new ResponseEntity("Информация о встрече успешно удалена", HttpStatus.OK);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity update(@RequestBody UpdateMeetingRequest updateMeetingRequest) {
+        int meeting_id = updateMeetingRequest.getMeeting_id();
+        String book_name = updateMeetingRequest.getBook_name();
+        String place = updateMeetingRequest.getPlace();
+        Date datetime = updateMeetingRequest.getDatetime();
+        int price = updateMeetingRequest.getPrice();
+
+
+        Integer book_id = bookService.getIdByName(book_name);
+        String request = meetingService.updateMeeting(meeting_id, book_id, place, datetime, price);
+
+        if (Objects.equals(request, "OK")) {
+            return new ResponseEntity("Информация о встрече успешно обновлена", HttpStatus.OK);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

@@ -56,7 +56,7 @@ public class BookCardService {
 
     public String addOnlyBookNameAndAuthor(String name, List<String> authors){
         if (name == null || authors.isEmpty()){
-            return "имя и автор не могут быть пустыми";
+            return "Имя и автор не могут быть пустыми";
         }
         bookService.add(name, null, null, null);
         authorService.addList(authors);
@@ -65,7 +65,7 @@ public class BookCardService {
 
     public String addBookAuthorGenre(String name, Integer pages, Float litres_rating, Float live_lib_rating, List<String> authors, List<String> genres){
         if (name == null || authors.isEmpty()){
-            return "имя и автор не могут быть пустыми";
+            return "Имя и автор не могут быть пустыми";
         }
         bookService.add(name, pages, litres_rating, live_lib_rating);
         authorService.addList(authors);
@@ -87,7 +87,7 @@ public class BookCardService {
 
     public String updateBookAuthorGenre(int bookId, String name, Integer pages, Float litres_rating, Float live_lib_rating, List<String> authors, List<String> genres){
         if (name == null || authors.isEmpty()){
-            return "имя и автор не могут быть пустыми";
+            return "Имя и автор не могут быть пустыми";
         }
         bookService.update(name, pages, litres_rating, live_lib_rating, bookId);
         List<Integer> authors_ids = getAuthorsIdByBook(bookId);

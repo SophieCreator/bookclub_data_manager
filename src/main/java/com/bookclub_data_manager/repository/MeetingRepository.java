@@ -20,10 +20,15 @@ public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO meetings (book_id, place, datetime, price) VALUES (:book_id, :place, :datetime, :price)", nativeQuery = true)
-    int addMeeting(@Param("book_id")int book_id, @Param("place")String place, @Param("datetime")Date datetime, @Param("price")int price);
+    void addMeeting(@Param("book_id")int book_id, @Param("place")String place, @Param("datetime")Date datetime, @Param("price")int price);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE meetings SET book_id = :book_id, place = :place, datetime = :datetime, price = :price  WHERE meeting_id = :meeting_id", nativeQuery = true)
+    void updateMeetingBook(@Param("book_id")int book_id, @Param("place")String place, @Param("datetime")Date datetime, @Param("price")int price);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM meetings WHERE meeting_id = :meeting_id", nativeQuery = true)
-    int deleteMeetingById(@Param("meeting_id")int meeting_id);
+    void deleteMeetingById(@Param("meeting_id")int meeting_id);
 }
