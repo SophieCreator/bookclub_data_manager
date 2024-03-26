@@ -13,7 +13,7 @@ import java.util.List;
 public interface RecordRepository extends CrudRepository<Record, Integer> {
 
     @Query(value = "SELECT * FROM records", nativeQuery = true)
-    List<Record> getAllRecords(@Param("record_id")int meeting_id);
+    List<Record> getAllRecords(@Param("record_id")int record_id);
 
     @Modifying
     @Transactional

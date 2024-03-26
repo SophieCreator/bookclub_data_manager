@@ -63,6 +63,15 @@ public class BookCardService {
         return "OK";
     }
 
+    public String updateOnlyBookNameAndAuthor(int book_id, String name, List<String> authors){
+        if (name == null || authors.isEmpty()){
+            return "Имя и автор не могут быть пустыми";
+        }
+        bookService.update(name, null, null, null, book_id);
+        authorService.updateList(authors, getAuthorsIdByBook(book_id));
+        return "OK";
+    }
+
     public String addBookAuthorGenre(String name, Integer pages, Float litres_rating, Float live_lib_rating, List<String> authors, List<String> genres){
         if (name == null || authors.isEmpty()){
             return "Имя и автор не могут быть пустыми";

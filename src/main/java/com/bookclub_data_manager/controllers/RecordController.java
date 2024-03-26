@@ -19,6 +19,6 @@ public class RecordController {
 
     @PostMapping("/add")
     public ResponseEntity add(@RequestBody AddMeetingRequest addMeetingRequest){
-        return new ResponseEntity("Вы успешно зарегистрированы!", HttpStatus.CREATED);;
+        return new ResponseEntity("Вы успешно зарегистрированы!", HttpStatus.CREATED);
     }
 }
