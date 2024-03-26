@@ -18,10 +18,10 @@ import java.util.Objects;
 public class MeetingController {
 
     @Autowired
-    private MeetingService meetingService;
+    MeetingService meetingService;
 
     @Autowired
-    private BookService bookService;
+    BookService bookService;
 
     @Autowired
     private BookCardService bookCardService;
