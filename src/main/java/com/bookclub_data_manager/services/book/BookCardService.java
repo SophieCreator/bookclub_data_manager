@@ -20,7 +20,7 @@ public class BookCardService {
     @Autowired
     GenreService genreService;
 
-    public List<Integer> getAuthorsIdByBook(int book_id){
+    public List<String> getAuthorsIdByBook(int book_id){
         return bookCardRepository.getAuthorsIdByBook(book_id);
     }
     public List<Integer> getGenresIdByBook(int book_id){
@@ -90,10 +90,11 @@ public class BookCardService {
             return "имя и автор не могут быть пустыми";
         }
         bookService.update(name, pages, litres_rating, live_lib_rating, bookId);
-        List<Integer> authors_ids = getAuthorsIdByBook(bookId);
+        List<String> authors_ids = getAuthorsIdByBook(bookId);
         if (authors_ids.isEmpty()){
             return "Ошибка";
         }
+        /*
         authorService.updateList(authors, authors_ids);
         if (!genres.isEmpty()){
             List<Integer> genre_ids = getGenresIdByBook(bookId);
@@ -102,6 +103,8 @@ public class BookCardService {
             }
             genreService.updateList(genres, genre_ids);
         }
+
+         */
         return "OK";
     }
 

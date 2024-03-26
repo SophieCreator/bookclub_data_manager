@@ -1,5 +1,6 @@
 package com.bookclub_data_manager.repository;
 
+import com.bookclub_data_manager.models.AuthorAndBook;
 import com.bookclub_data_manager.models.Book;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,13 +12,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BookCardRepository extends CrudRepository<Book, Integer> {
+public interface BookCardRepository extends CrudRepository<AuthorAndBook, Integer> {
 
     @Query(value = "SELECT author_id FROM book_and_author WHERE book_id = :book_id", nativeQuery = true)
-    List<Integer> getAuthorsIdByBook(@Param("book_id")int book_id);
+    List<String> getAuthorsIdByBook(@Param("book_id") int book_id);
 
     @Query(value = "SELECT genre_id FROM book_and_genre WHERE book_id = :book_id", nativeQuery = true)
-    List<Integer> getGenresIdByBook(@Param("book_id")int book_id);
+    List<Integer> getGenresIdByBook(@Param("book_id") int book_id);
 
     @Modifying
     @Transactional
