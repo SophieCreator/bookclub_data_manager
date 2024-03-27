@@ -71,3 +71,4 @@ CREATE TABLE meetings(
     price INT NOT NULL,
     PRIMARY KEY(meeting_id)
 );
+

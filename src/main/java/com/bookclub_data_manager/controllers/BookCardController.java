@@ -1,6 +1,7 @@
 package com.bookclub_data_manager.controllers;
 
 import com.bookclub_data_manager.dto.requests.AddBookRequest;
+import com.bookclub_data_manager.dto.requests.AddFavouriteBookRequest;
 import com.bookclub_data_manager.dto.requests.UpdateBookRequest;
 import com.bookclub_data_manager.dto.responses.BookCardResponse;
 import com.bookclub_data_manager.models.Author;
@@ -10,6 +11,7 @@ import com.bookclub_data_manager.services.book.AuthorService;
 import com.bookclub_data_manager.services.book.BookCardService;
 import com.bookclub_data_manager.services.book.BookService;
 import com.bookclub_data_manager.services.book.GenreService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +22,8 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("app/book")
-public class BookController {
+@RequestMapping("app/bookCard")
+public class BookCardController {
 
     @Autowired
     BookService bookService;
@@ -37,7 +39,7 @@ public class BookController {
 
     @PostMapping("/add")
     public ResponseEntity addBook(@RequestBody AddBookRequest addBookRequest){
-        String name = addBookRequest.getName();;
+        String name = addBookRequest.getName();
         List<String> authors = addBookRequest.getAuthors();
         List<String> genres = addBookRequest.getGenres();
         Integer pages = addBookRequest.getPages();
@@ -132,8 +134,96 @@ public class BookController {
         } else {
             return new ResponseEntity(bookCardResponses, HttpStatus.OK);
         }
+    }
+
+    @PostMapping("/addFavouriteBook")
+    public ResponseEntity addFavouriteBook(@RequestBody AddFavouriteBookRequest addFavouriteBookRequest){
+        String request = bookCardService.addOnlyBookNameAndAuthor(addFavouriteBookRequest.getBookName(), addFavouriteBookRequest.getAuthors());
+        bookCardService.setBookAndUserDependencies(bookService.getIdByName(addFavouriteBookRequest.getBookName()), addFavouriteBookRequest.getUser_id());
+
+        if (Objects.equals(request, "OK")) {
+            return new ResponseEntity("Любимая книга успешно добавлена", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/deleteFavouriteBook")
+    public ResponseEntity deleteFavouriteBook(@RequestParam Integer book_id,
+                                              @RequestParam Integer user_id){
+        String request = bookCardService.unsetBookAndUserDependencies(book_id, user_id);
+        if (Objects.equals(request, "OK")) {
+            return new ResponseEntity("Любимый автор успешно удалена", HttpStatus.OK);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/addFavouriteAuthor")
+    public ResponseEntity addFavouriteAuthor(@RequestParam String authorName,
+                                             @RequestParam int user_id){
+        String request = authorService.add(authorName);
+        bookCardService.setAuthorAndUserDependencies(authorService.getIdByName(authorName), user_id);
+
+        if (Objects.equals(request, "OK")) {
+            return new ResponseEntity("Любимый автор успешно добавлена", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/deleteFavouriteAuthor")
+    public ResponseEntity deleteFavouriteAuthor(@RequestParam int author_id,
+                                                @RequestParam int user_id){
+        String request = bookCardService.unsetAuthorAndUserDependencies(author_id, user_id);
+        if (Objects.equals(request, "OK")) {
+            return new ResponseEntity("Любимый автор успешно удален", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
+    @PostMapping("/addFavouriteGenre")
+    public ResponseEntity addFavouriteGenre(@RequestParam String genreName,
+                                             @RequestParam int user_id){
+        String request = genreService.add(genreName);
+        bookCardService.setGenreAndUserDependencies(genreService.getIdByName(genreName), user_id);
+
+        if (Objects.equals(request, "OK")) {
+            return new ResponseEntity("Любимый жанр успешно добавлен", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/deleteFavouriteGenre")
+    public ResponseEntity deleteFavouriteGenre(@RequestParam int genre_id,
+                                                @RequestParam int user_id){
+        String request = bookCardService.unsetGenreAndUserDependencies(genre_id, user_id);
+        if (Objects.equals(request, "OK")) {
+            return new ResponseEntity("Любимый жанр успешно удален", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/getFavouriteBooks")
+    public ResponseEntity getFavouriteBooks(@RequestParam int user_id){
+        List<Book> books = bookService.getFavouriteBooks(user_id);
+        return new ResponseEntity(books, HttpStatus.OK);
+    }
+
+    @PostMapping("/getFavouriteAuthors")
+    public ResponseEntity getFavouriteAuthors(@RequestParam int user_id){
+        List<Author> authors = authorService.getFavouriteAuthors(user_id);
+        return new ResponseEntity(authors, HttpStatus.OK);
+    }
+
+    @PostMapping("/getFavouriteGenres")
+    public ResponseEntity getFavouriteGenres(@RequestParam int user_id){
+        List<Genre> genres = genreService.getFavouriteGenres(user_id);
+        return new ResponseEntity(genres, HttpStatus.OK);
     }
 
 

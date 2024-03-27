@@ -16,6 +16,35 @@ import java.util.List;
 @Repository
 public interface BookCardRepository extends CrudRepository<Book, Integer> {
 
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO favourite_books (book_id, user_id) VALUES (:book_id, :user_id)", nativeQuery = true)
+    void setBookAndUser(@Param("book_id")int book_id, @Param("user_id")int user_id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM favourite_books WHERE book_id = :book_id AND user_id = :user_id", nativeQuery = true)
+    void unsetBookAndUser(@Param("book_id")int book_id, @Param("user_id")int user_id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO favourite_authors (author_id, user_id) VALUES (:author_id, :user_id)", nativeQuery = true)
+    void setAuthorAndUser(@Param("author_id")int author_id, @Param("user_id")int user_id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM favourite_authors WHERE author_id = :author_id AND user_id = :user_id", nativeQuery = true)
+    void unsetAuthorAndUser(@Param("author_id")int book_id, @Param("user_id")int user_id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO favourite_genres (genre_id, user_id) VALUES (:genre_id, :user_id)", nativeQuery = true)
+    void setGenreAndUser(@Param("genre_id")int genre_id, @Param("user_id")int user_id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM favourite_genres WHERE genre_id = :genre_id AND user_id = :user_id", nativeQuery = true)
+    void unsetGenreAndUser(@Param("genre_id")int genre_id, @Param("user_id")int user_id);
 
     @Query(value = "SELECT author_id FROM book_and_author WHERE book_id = :book_id", nativeQuery = true)
     List<Integer> getAuthorsIdByBook(@Param("book_id") int book_id);

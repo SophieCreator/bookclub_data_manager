@@ -1,6 +1,7 @@
 package com.bookclub_data_manager.services.book;
 
 import com.bookclub_data_manager.models.Author;
+import com.bookclub_data_manager.models.Book;
 import com.bookclub_data_manager.repository.AuthorRepository;
 import com.bookclub_data_manager.repository.BookRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -70,5 +71,9 @@ public class AuthorService {
              add(name);
         }
         return "OK";
+    }
+
+    public List<Author> getFavouriteAuthors(int user_id){
+        return authorRepository.getFavouriteAuthors(user_id);
     }
 }

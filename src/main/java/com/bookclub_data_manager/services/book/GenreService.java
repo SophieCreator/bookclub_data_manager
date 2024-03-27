@@ -1,5 +1,6 @@
 package com.bookclub_data_manager.services.book;
 
+import com.bookclub_data_manager.models.Book;
 import com.bookclub_data_manager.models.Genre;
 import com.bookclub_data_manager.repository.GenreRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -71,6 +72,9 @@ public class GenreService {
         return genreRepository.getIdByName(name);
     }
 
+    public List<Genre> getFavouriteGenres(int user_id){
+        return genreRepository.getFavouriteGenres(user_id);
+    }
 
 
 }

@@ -57,4 +57,8 @@ public class BookService {
         return bookRepository.getAllBookIds();
     }
 
+    public List<Book> getFavouriteBooks(int user_id){
+        return bookRepository.getFavouriteBooks(user_id);
+    }
+
 }

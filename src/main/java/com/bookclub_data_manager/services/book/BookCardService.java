@@ -6,6 +6,7 @@ import com.bookclub_data_manager.repository.BookCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,6 +27,54 @@ public class BookCardService {
     }
     public List<Integer> getGenresIdByBook(int book_id){
         return bookCardRepository.getGenresIdByBook(book_id);
+    }
+
+    public String setBookAndUserDependencies(Integer book_id, Integer user_id){
+        if (book_id == null || user_id == null){
+            return "Нет идентификатора книги или пользователя";
+        }
+        bookCardRepository.setBookAndUser(book_id, user_id);
+        return "OK";
+    }
+
+    public String unsetBookAndUserDependencies(Integer book_id, Integer user_id){
+        if (book_id == null || user_id == null){
+            return "Нет идентификатора книги или пользователя";
+        }
+        bookCardRepository.unsetBookAndUser(book_id, user_id);
+        return "OK";
+    }
+
+    public String setAuthorAndUserDependencies(Integer author_id, Integer user_id){
+        if (author_id == null || user_id == null){
+            return "Нет идентификатора автора или пользователя";
+        }
+        bookCardRepository.setAuthorAndUser(author_id, user_id);
+        return "OK";
+    }
+
+    public String unsetAuthorAndUserDependencies(Integer author_id, Integer user_id){
+        if (author_id == null || user_id == null){
+            return "Нет идентификатора автора или пользователя";
+        }
+        bookCardRepository.unsetAuthorAndUser(author_id, user_id);
+        return "OK";
+    }
+
+    public String setGenreAndUserDependencies(Integer genre_id, Integer user_id){
+        if (genre_id == null || user_id == null){
+            return "Нет идентификатора автора или пользователя";
+        }
+        bookCardRepository.setGenreAndUser(genre_id, user_id);
+        return "OK";
+    }
+
+    public String unsetGenreAndUserDependencies(Integer genre_id, Integer user_id){
+        if (genre_id == null || user_id == null){
+            return "Нет идентификатора автора или пользователя";
+        }
+        bookCardRepository.unsetGenreAndUser(genre_id, user_id);
+        return "OK";
     }
 
     public String setBookCardDependencies(Integer bookId, List<String> authors, List<String> genres){
@@ -59,8 +108,9 @@ public class BookCardService {
         if (name == null || authors.isEmpty()){
             return "Имя и автор не могут быть пустыми";
         }
-        bookService.add(name, null, null, null);
+        bookService.add(name, -1, -1.0F, -1.0F);
         authorService.addList(authors);
+        setBookCardDependencies(bookService.getIdByName(name), authors, new ArrayList<>());
         return "OK";
     }
 
@@ -68,7 +118,7 @@ public class BookCardService {
         if (name == null || authors.isEmpty()){
             return "Имя и автор не могут быть пустыми";
         }
-        bookService.update(name, null, null, null, book_id);
+        bookService.update(name, -1, -1.0F, -1.0F, book_id);
         authorService.updateList(authors, getAuthorsIdByBook(book_id));
         return "OK";
     }

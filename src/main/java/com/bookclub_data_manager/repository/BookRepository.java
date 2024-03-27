@@ -20,6 +20,9 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
     @Query(value = "SELECT book_id FROM books", nativeQuery = true)
     List<Integer> getAllBookIds();
 
+    @Query(value = "SELECT * FROM books WHERE book_id IN (SELECT book_id FROM favourite_books WHERE user_id = :user_id)", nativeQuery = true)
+    List<Book> getFavouriteBooks(@Param("user_id")int user_id);
+
     @Query(value = "SELECT * FROM books WHERE book_id = :book_id", nativeQuery = true)
     Book getBookById(@Param("book_id")int book_id);
 
