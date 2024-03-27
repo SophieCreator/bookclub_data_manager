@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -23,7 +24,7 @@ public class RecordService {
 
         LocalDateTime currentDateTime = java.time.LocalDateTime.now();
 
-        if (currentDateTime.compareTo(datetime.toLocalDate().atTime()) == 0) ;
+        if (currentDateTime.isEqual(datetime.toLocalDate().atTime(LocalTime.MIDNIGHT))) ;
 
         recordRepository.updateRecordPassed(true);
 
