@@ -35,10 +35,10 @@ public class UserController {
 
     @PostMapping("/authentication/register")
     public ResponseEntity register(@RequestParam("name") String name,
-                                 @RequestParam("login") String login,
-                                 @RequestParam("email") String email,
-                                 @RequestParam("password") String password,
-                                 @RequestParam("is_admin") String is_admin){
+                                   @RequestParam("login") String login,
+                                   @RequestParam("email") String email,
+                                   @RequestParam("password") String password,
+                                   @RequestParam("is_admin") String is_admin){
 
         String hashed_password = passwordEncoder.encode(password);
 

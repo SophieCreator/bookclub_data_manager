@@ -175,6 +175,7 @@ public class BookCardController {
     @PostMapping("/deleteFavouriteAuthor")
     public ResponseEntity deleteFavouriteAuthor(@RequestParam int author_id,
                                                 @RequestParam int user_id){
+
         String request = bookCardService.unsetAuthorAndUserDependencies(author_id, user_id);
         if (Objects.equals(request, "OK")) {
             return new ResponseEntity("Любимый автор успешно удален", HttpStatus.CREATED);
@@ -187,6 +188,7 @@ public class BookCardController {
     @PostMapping("/addFavouriteGenre")
     public ResponseEntity addFavouriteGenre(@RequestParam String genreName,
                                              @RequestParam int user_id){
+
         String request = genreService.add(genreName);
         bookCardService.setGenreAndUserDependencies(genreService.getIdByName(genreName), user_id);
 
@@ -200,7 +202,9 @@ public class BookCardController {
     @PostMapping("/deleteFavouriteGenre")
     public ResponseEntity deleteFavouriteGenre(@RequestParam int genre_id,
                                                 @RequestParam int user_id){
+
         String request = bookCardService.unsetGenreAndUserDependencies(genre_id, user_id);
+
         if (Objects.equals(request, "OK")) {
             return new ResponseEntity("Любимый жанр успешно удален", HttpStatus.CREATED);
         } else {

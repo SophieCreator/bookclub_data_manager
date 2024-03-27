@@ -76,15 +76,15 @@ public class MeetingController {
 
         Integer book_id = bookService.getIdByName(book_name);
 
-        String request = meetingService.updateMeeting(place, datetime, price, meeting_id);
-        String request1 = bookCardService.updateOnlyBookNameAndAuthor(book_id, book_name, author);
+        String requestMeeting = meetingService.updateMeeting(place, datetime, price, meeting_id);
+        String requestBookAuthor = bookCardService.updateOnlyBookNameAndAuthor(book_id, book_name, author);
 
-        if (Objects.equals(request, "OK")) {
+        if (Objects.equals(requestMeeting, "OK")) {
             return new ResponseEntity("Информация о встрече успешно обновлена", HttpStatus.OK);
-        } else if (Objects.equals(request1, "OK")){
+        } else if (Objects.equals(requestBookAuthor, "OK")){
             return new ResponseEntity("Информация о встрече успешно обновлена", HttpStatus.OK);
         } else {
-            return new ResponseEntity(request1, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(requestBookAuthor, HttpStatus.BAD_REQUEST);
         }
     }
 
