@@ -72,12 +72,12 @@ CREATE TABLE meetings(
     PRIMARY KEY(meeting_id)
 );
 
- CREATE TABLE tasks(
-     task_id INT NOT NULL AUTO_INCREMENT,
-     user_id INT,
-     task_name VARCHAR(60),
-     task_text VARCHAR(200),
-     deadline DATE,
-     is_done VARCHAR(1),
-     PRIMARY KEY(task_id)
- );
+CREATE TABLE tasks(
+    task_id INT NOT NULL AUTO_INCREMENT,
+    user_id INT,
+    task_name VARCHAR(60),
+    task_text VARCHAR(200),
+    deadline DATE,
+    is_done VARCHAR(1),
+    PRIMARY KEY(task_id)
+);
