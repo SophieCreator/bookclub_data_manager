@@ -1,5 +1,7 @@
 package com.bookclub_data_manager.services.book;
 
+import com.bookclub_data_manager.models.Author;
+import com.bookclub_data_manager.models.Genre;
 import com.bookclub_data_manager.repository.BookCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

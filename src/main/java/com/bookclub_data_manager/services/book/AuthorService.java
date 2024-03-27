@@ -1,5 +1,6 @@
 package com.bookclub_data_manager.services.book;
 
+import com.bookclub_data_manager.models.Author;
 import com.bookclub_data_manager.repository.AuthorRepository;
 import com.bookclub_data_manager.repository.BookRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -24,6 +25,14 @@ public class AuthorService {
     public String update(String author, int author_id){
         authorRepository.update(author, author_id);
         return "OK";
+    }
+
+    public Author getAuthorById(int id){
+        return authorRepository.getAuthor(id);
+    }
+
+    public List<Author> getAuthors(int book_id){
+        return authorRepository.getAuthors(book_id);
     }
 
     public String updateList(List<String> authors, List<Integer> ids){
