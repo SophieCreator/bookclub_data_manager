@@ -2,6 +2,7 @@ package com.bookclub_data_manager.controllers;
 
 import com.bookclub_data_manager.dto.requests.LoginRequest;
 import com.bookclub_data_manager.dto.responses.AuthResponse;
+import com.bookclub_data_manager.models.User;
 import com.bookclub_data_manager.services.JwtTokenService;
 import com.bookclub_data_manager.services.auth.MyCustomUserDetailService;
 import com.bookclub_data_manager.services.auth.MyCustomUserDetails;
@@ -17,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -68,7 +70,6 @@ public class UserController {
             MyCustomUserDetails userDetails =
                     (MyCustomUserDetails) myCustomUserDetailService.loadUserByUsername(emailOrLogin);
 
-
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             String token = jwtTokenService.generateToken(userDetails);
@@ -82,6 +83,49 @@ public class UserController {
          } else {
              return new ResponseEntity("Неверный пароль", HttpStatus.BAD_REQUEST);
          }
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity update(@RequestParam("name") String name,
+                                 @RequestParam("login") String login,
+                                 @RequestParam("email") String email,
+                                 @RequestParam("password") String password,
+                                 @RequestParam("user_id") int user_id){
+
+        String hashed_password = passwordEncoder.encode(password);
+        String result = userService.update(name, login, email, hashed_password, user_id);
+
+        if(!Objects.equals(result, "OK")){
+            return new ResponseEntity(result, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity("Вы успешно обновили профиль!", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity delete(@RequestParam("user_id") int user_id){
+        String request = userService.delete(user_id);
+        if(!Objects.equals(request, "OK")){
+            return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity("Успешно удалено", HttpStatus.OK);
+    }
+
+    @PostMapping("/get")
+    public ResponseEntity get(@RequestParam("user_id") int user_id){
+        User user = userService.getUserById(user_id);
+        if (user == null){
+            return new ResponseEntity("Пользователь не найден", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(user, HttpStatus.OK);
+    }
+
+    @PostMapping("/getAll")
+    public ResponseEntity getAll(){
+        List<User> users = userService.getAll();
+        if (users.isEmpty()){
+            return new ResponseEntity("Список пустой", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(users, HttpStatus.OK);
     }
 
 
