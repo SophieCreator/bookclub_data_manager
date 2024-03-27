@@ -1,9 +1,11 @@
 package com.bookclub_data_manager.services.meeting;
+import com.bookclub_data_manager.models.Meeting;
 import com.bookclub_data_manager.repository.MeetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.List;
 
 @Service
 public class MeetingService {
@@ -26,8 +28,11 @@ public class MeetingService {
         return "OK";
     }
 
-    public String getMeeting(int meeting_id) {
+    public Meeting getMeeting(int meeting_id) {
+        return meetingRepository.getMeetingById(meeting_id);
+    }
 
-        return "OK";
+    public List<Meeting> getAllMeetings() {
+        return meetingRepository.getAllMeetings();
     }
 }
