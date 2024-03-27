@@ -1,5 +1,6 @@
 package com.bookclub_data_manager.services.book;
 
+import com.bookclub_data_manager.models.Genre;
 import com.bookclub_data_manager.repository.GenreRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,10 @@ public class GenreService {
             update(genre, id);
         }
         return "OK";
+    }
+
+    public List<Genre> getGenres(int book_id){
+        return genreRepository.getGenres(book_id);
     }
 
 

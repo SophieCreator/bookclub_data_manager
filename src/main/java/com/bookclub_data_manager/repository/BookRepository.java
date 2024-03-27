@@ -1,5 +1,6 @@
 package com.bookclub_data_manager.repository;
 
+import com.bookclub_data_manager.models.Author;
 import com.bookclub_data_manager.models.Book;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,6 +16,12 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
 
     @Query(value = "SELECT * FROM books", nativeQuery = true)
     List<Book> getAllBooks();
+
+    @Query(value = "SELECT book_id FROM books", nativeQuery = true)
+    List<Integer> getAllBookIds();
+
+    @Query(value = "SELECT * FROM books WHERE book_id = :book_id", nativeQuery = true)
+    Book getBookById(@Param("book_id")int book_id);
 
     @Query(value = "SELECT name FROM books WHERE name = :name", nativeQuery = true)
     List<String> doesBookExists(@Param("name")String name);

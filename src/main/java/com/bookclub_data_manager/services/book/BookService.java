@@ -1,5 +1,6 @@
 package com.bookclub_data_manager.services.book;
 
+import com.bookclub_data_manager.models.Book;
 import com.bookclub_data_manager.repository.AuthorRepository;
 import com.bookclub_data_manager.repository.BookRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -46,6 +47,14 @@ public class BookService {
         }
         bookRepository.deleteById(bookId);
         return "OK";
+    }
+
+    public Book getBookById(int book_id){
+        return bookRepository.getBookById(book_id);
+    }
+
+    public List<Integer> getAllBookIds(){
+        return bookRepository.getAllBookIds();
     }
 
 }

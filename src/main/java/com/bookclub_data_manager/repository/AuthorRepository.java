@@ -16,6 +16,12 @@ public interface AuthorRepository extends CrudRepository<Author, Integer> {
     @Query(value = "SELECT * FROM authors", nativeQuery = true)
     List<Author> getAllAuthors();
 
+    @Query(value = "SELECT * FROM authors WHERE author_id IN (SELECT author_id FROM book_and_author WHERE book_id = :book_id)", nativeQuery = true)
+    List<Author> getAuthors(@Param("book_id")int book_id);
+
+    @Query(value = "SELECT * FROM authors WHERE author_id = :author_id", nativeQuery = true)
+    Author getAuthor(@Param("author_id")int author_id);
+
     @Query(value = "SELECT name FROM authors WHERE name = :name", nativeQuery = true)
     List<String> doesAuthorExists(@Param("name")String name);
 

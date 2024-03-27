@@ -2,14 +2,20 @@ package com.bookclub_data_manager.controllers;
 
 import com.bookclub_data_manager.dto.requests.AddBookRequest;
 import com.bookclub_data_manager.dto.requests.UpdateBookRequest;
+import com.bookclub_data_manager.dto.responses.BookCardResponse;
+import com.bookclub_data_manager.models.Author;
+import com.bookclub_data_manager.models.Book;
+import com.bookclub_data_manager.models.Genre;
 import com.bookclub_data_manager.services.book.AuthorService;
 import com.bookclub_data_manager.services.book.BookCardService;
 import com.bookclub_data_manager.services.book.BookService;
+import com.bookclub_data_manager.services.book.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,6 +27,9 @@ public class BookController {
     BookService bookService;
     @Autowired
     AuthorService authorService;
+
+    @Autowired
+    GenreService genreService;
 
     @Autowired
     BookCardService bookCardService;
@@ -72,5 +81,60 @@ public class BookController {
             return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/get")
+    public ResponseEntity getBook(@RequestParam int book_id){
+
+        Book book = bookService.getBookById(book_id);
+
+        if (book == null){
+            return new ResponseEntity("Нет данных о книге", HttpStatus.BAD_REQUEST);
+        }
+
+        List<Author> authors = authorService.getAuthors(book_id);
+        if (authors.isEmpty()){
+            return new ResponseEntity("Нет данных по авторам", HttpStatus.BAD_REQUEST);
+        }
+        List<Genre> genres = genreService.getGenres(book_id);
+        BookCardResponse bookCardResponse = new BookCardResponse(book, authors, genres);
+
+        if(book == null || authors.isEmpty()){
+            return new ResponseEntity("Нет данных по книге", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity(bookCardResponse, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/getAll")
+    public ResponseEntity getAllBooks(){
+
+        List<BookCardResponse> bookCardResponses = new ArrayList<>();
+        List<Integer> allBookIds = bookService.getAllBookIds();
+
+        for (int book_id : allBookIds){
+            Book book = bookService.getBookById(book_id);
+
+            if (book == null){
+                return new ResponseEntity("Нет данных по книге", HttpStatus.BAD_REQUEST);
+            }
+            List<Author> authors = authorService.getAuthors(book_id);
+
+            if (authors.isEmpty()){
+                return new ResponseEntity("Нет данных по авторам", HttpStatus.BAD_REQUEST);
+            }
+            List<Genre> genres = genreService.getGenres(book_id);
+            BookCardResponse bookCardResponse = new BookCardResponse(book, authors, genres);
+            bookCardResponses.add(bookCardResponse);
+        }
+
+        if(bookCardResponses == null){
+            return new ResponseEntity("Нет данных по книге", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity(bookCardResponses, HttpStatus.OK);
+        }
+
+
+    }
+
 
 }

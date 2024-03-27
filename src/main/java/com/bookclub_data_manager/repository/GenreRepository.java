@@ -1,5 +1,6 @@
 package com.bookclub_data_manager.repository;
 
+import com.bookclub_data_manager.models.Book;
 import com.bookclub_data_manager.models.Genre;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
@@ -8,8 +9,16 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface GenreRepository extends CrudRepository<Genre, Integer> {
+
+    @Query(value = "SELECT * FROM genres", nativeQuery = true)
+    List<Genre> getAllGenres();
+
+    @Query(value = "SELECT * FROM genres WHERE genre_id IN (SELECT genre_id FROM book_and_genre WHERE book_id = :book_id)", nativeQuery = true)
+    List<Genre> getGenres(@Param("book_id")int book_id);
 
     @Query(value = "SELECT genre_id FROM genres WHERE name = :name", nativeQuery = true)
     int getIdByName(@Param("name")String name);
