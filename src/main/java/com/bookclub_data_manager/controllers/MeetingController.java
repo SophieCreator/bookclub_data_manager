@@ -2,6 +2,7 @@ package com.bookclub_data_manager.controllers;
 
 import com.bookclub_data_manager.dto.requests.AddMeetingRequest;
 import com.bookclub_data_manager.dto.requests.UpdateMeetingRequest;
+import com.bookclub_data_manager.models.Meeting;
 import com.bookclub_data_manager.services.book.BookCardService;
 import com.bookclub_data_manager.services.book.BookService;
 import com.bookclub_data_manager.services.meeting.MeetingService;
@@ -65,6 +66,7 @@ public class MeetingController {
 
     @PostMapping("/update")
     public ResponseEntity update(@RequestBody UpdateMeetingRequest updateMeetingRequest) {
+
         int meeting_id = updateMeetingRequest.getMeeting_id();
         String book_name = updateMeetingRequest.getBook_name();
         List<String> author = updateMeetingRequest.getAuthor();
@@ -83,6 +85,30 @@ public class MeetingController {
             return new ResponseEntity("Информация о встрече успешно обновлена", HttpStatus.OK);
         } else {
             return new ResponseEntity(request1, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/get")
+    public ResponseEntity getMeeting(@RequestParam int meeting_id) {
+
+        Meeting meeting = meetingService.getMeeting(meeting_id);
+
+        if (meeting == null){
+            return new ResponseEntity("Нет данных о встрече", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity(meeting, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/getAll")
+    public ResponseEntity getAllMeetings() {
+
+        List<Meeting> meetings = meetingService.getAllMeetings();
+
+        if (meetings == null){
+            return new ResponseEntity("Список встреч пуст", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity(meetings, HttpStatus.OK);
         }
     }
 }
