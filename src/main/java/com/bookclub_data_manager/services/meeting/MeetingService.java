@@ -21,8 +21,8 @@ public class MeetingService {
         return "OK";
     }
 
-    public String updateMeeting(int meeting_id, int book_id, String place, Date datetime, int price) {
-        meetingRepository.updateMeetingBook(book_id, place, datetime, price);
+    public String updateMeeting(String place, Date datetime, int price, Integer meeting_id) {
+        meetingRepository.updateMeetingBook(place, datetime, price, meeting_id);
         return "OK";
     }
 }

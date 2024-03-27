@@ -24,8 +24,8 @@ public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE meetings SET book_id = :book_id, place = :place, datetime = :datetime, price = :price  WHERE meeting_id = :meeting_id", nativeQuery = true)
-    void updateMeetingBook(@Param("book_id")int book_id, @Param("place")String place, @Param("datetime")Date datetime, @Param("price")int price);
+    @Query(value = "UPDATE meetings SET place = :place, datetime = :datetime, price = :price  WHERE meeting_id = :meeting_id", nativeQuery = true)
+    void updateMeetingBook(@Param("place")String place, @Param("datetime")Date datetime, @Param("price")int price, @Param("meeting_id")int meeting_id);
 
     @Modifying
     @Transactional
