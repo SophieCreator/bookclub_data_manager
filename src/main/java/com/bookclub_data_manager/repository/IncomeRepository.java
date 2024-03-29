@@ -17,16 +17,16 @@ public interface IncomeRepository extends CrudRepository<Income, Integer> {
     @Query(value = "SELECT * FROM incomes", nativeQuery = true)
     List<Income> getAllIncomes();
 
-    @Query(value = "SELECT * FROM incomes WHERE income_id = :income_id)", nativeQuery = true)
+    @Query(value = "SELECT * FROM incomes WHERE income_id = :income_id", nativeQuery = true)
     Income getIncomeById(@Param("income_id")int income_id);
 
-    @Query(value = "SELECT SUM(amount) FROM incomes WHERE (dateGet >= dateStart) AND (dateGet <= dateEnd)", nativeQuery = true)
+    @Query(value = "SELECT SUM(amount) FROM incomes WHERE (date_get >= dateStart) AND (date_get <= dateEnd)", nativeQuery = true)
     int getIncomeSum(Date dateStart, Date dateEnd);
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO incomes (name, amount, dateGet) VALUES (:name, :amount, :dateGet)", nativeQuery = true)
-    void add(@Param("name")String name, @Param("amount")int amount, @Param("dateGet") Date dateGet);
+    @Query(value = "INSERT INTO incomes (name, amount, date_get) VALUES (:name, :amount, :date_get)", nativeQuery = true)
+    void add(@Param("name")String name, @Param("amount")int amount, @Param("date_get") Date date_get);
 
     @Modifying
     @Transactional
@@ -35,8 +35,8 @@ public interface IncomeRepository extends CrudRepository<Income, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE incomes SET name = :name, amount = :amount, dateGet = :dateGet WHERE income_id = :income_id", nativeQuery = true)
-    void update(@Param("name")String name, @Param("amount")int amount, @Param("dateGet") Date dateGet, @Param("income_id")int income_id);
+    @Query(value = "UPDATE incomes SET name = :name, amount = :amount, date_get = :date_get WHERE income_id = :income_id", nativeQuery = true)
+    void update(@Param("name")String name, @Param("amount")int amount, @Param("date_get") Date date_get, @Param("income_id")int income_id);
 
 
 }

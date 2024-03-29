@@ -86,7 +86,7 @@ CREATE TABLE incomes(
     income_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     amount INT NOT NULL,
-    dateGet DATE NOT NULL,
+    date_get DATE NOT NULL,
     PRIMARY KEY(income_id)
 );
 
@@ -94,7 +94,7 @@ CREATE TABLE expenses(
     expense_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     amount INT NOT NULL,
-    dateGet DATE NOT NULL,
+    date_get DATE NOT NULL,
     is_regular VARCHAR(1) NOT NULL,
     PRIMARY KEY(expense_id)
 );

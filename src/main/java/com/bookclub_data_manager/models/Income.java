@@ -14,7 +14,7 @@ public class Income {
     private int income_id;
     private String name;
     private int amount;
-    private Date date;
+    private Date date_get;
 
     public int getIncome_id() {
         return income_id;
@@ -32,12 +32,20 @@ public class Income {
         this.name = name;
     }
 
-    public Date getDate() {
-        return date;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public Date getDate_get() {
+        return date_get;
+    }
+
+    public void setDate_get(Date date_get) {
+        this.date_get = date_get;
     }
 
     public int getSum() {
