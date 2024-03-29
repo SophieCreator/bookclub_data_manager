@@ -58,4 +58,5 @@ public class MyRecordService {
     public List<MyRecord> getMyRecordsByMeeting(int meeting_id) {
         return recordRepository.getMyRecordsByMeeting(meeting_id);
     }
+
 }

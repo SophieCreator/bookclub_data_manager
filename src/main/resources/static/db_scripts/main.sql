@@ -109,4 +109,20 @@ CREATE TABLE records(
      PRIMARY KEY (record_id)
 );
 
+CREATE TABLE rewards(
+     reward_id INT NOT NULL AUTO_INCREMENT,
+     name VARCHAR(200) NOT NULL,
+     reason VARCHAR(300),
+     promo VARCHAR(30),
+     image VARCHAR(30),
+     tests_required INT,
+     meetings_required INT,
+     sale INT,
+     PRIMARY KEY (reward_id)
+);
 
+CREATE TABLE user_and_reward(
+    user_id INT NOT NULL,
+    reward_id INT NOT NULL,
+    is_used BOOLEAN
+);
