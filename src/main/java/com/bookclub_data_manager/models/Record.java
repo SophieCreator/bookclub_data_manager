@@ -7,17 +7,10 @@ import jakarta.persistence.*;
 public class Record {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int record_id;
 
-    @ManyToOne
-    @JoinColumn(name = "meeting_id", referencedColumnName = "id")
-    private Meeting meeting;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-
+    private int meeting_id;
+    private int user_id;
     private Boolean is_passed;
     private Float rating;
     private int sale;
@@ -30,20 +23,20 @@ public class Record {
         this.record_id = record_id;
     }
 
-    public Meeting getMeeting() {
-        return meeting;
+    public int getMeeting_id() {
+        return meeting_id;
     }
 
-    public void setMeeting(Meeting meeting) {
-        this.meeting = meeting;
+    public void setMeeting_id(int meeting_id) {
+        this.meeting_id = meeting_id;
     }
 
-    public User getUser() {
-        return user;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public Boolean getIs_passed() {

@@ -24,8 +24,8 @@ public interface RecordRepository {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO records (meeting_id, user_id) VALUES (:meeting_id, :user_id)", nativeQuery = true)
-    void addRecord(@Param("meeting_id")int meeting_id, @Param("user_id")int user_id);
+    @Query(value = "INSERT INTO records (record_id, meeting_id, user_id) VALUES (:record_id, :meeting_id, :user_id)", nativeQuery = true)
+    void addRecord(@Param("record_id")int record_id, @Param("meeting_id")int meeting_id, @Param("user_id")int user_id);
 
     @Modifying
     @Transactional

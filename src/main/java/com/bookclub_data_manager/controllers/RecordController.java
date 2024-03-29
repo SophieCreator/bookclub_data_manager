@@ -25,10 +25,11 @@ public class RecordController {
     MeetingService meetingService;
 
     @PostMapping("/add")
-    public ResponseEntity add(@RequestParam("meeting_id") int meeting_id,
+    public ResponseEntity add(@RequestParam("record_id") int record_id,
+                              @RequestParam("meeting_id") int meeting_id,
                               @RequestParam("user_id") int user_id){
 
-        String result = recordService.add(meeting_id, user_id);
+        String result = recordService.add(record_id, meeting_id, user_id);
 
         if (Objects.equals(result, "OK")){
             return new ResponseEntity("Вы записаны на встречу!", HttpStatus.CREATED);

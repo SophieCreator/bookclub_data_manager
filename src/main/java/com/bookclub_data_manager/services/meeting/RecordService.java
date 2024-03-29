@@ -15,8 +15,8 @@ public class RecordService {
     @Autowired
     RecordRepository recordRepository;
 
-    public String add(Integer meeting_id, Integer user_id) {
-        recordRepository.addRecord(meeting_id, user_id);
+    public String add(Integer record_id, Integer meeting_id, Integer user_id) {
+        recordRepository.addRecord(record_id, meeting_id, user_id);
         return "OK";
     }
 
