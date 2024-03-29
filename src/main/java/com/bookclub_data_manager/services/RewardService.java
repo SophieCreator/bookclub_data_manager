@@ -59,6 +59,9 @@ public class RewardService {
         if (name == null && reason == null){
             return "Поля не могут быть пустыми";
         }
+        if (!rewardRepository.promoIsAvailable(promo).isEmpty() && !promoIsMine(promo, reward_id)){
+            return "Промокод уже занят";
+        }
         rewardRepository.update(name, reason, promo, image, tests_required, meetings_required, sale, reward_id);
         return "OK";
     }
@@ -100,6 +103,13 @@ public class RewardService {
     public String setRewardUsed(int reward_id, int user_id){
         rewardRepository.setRewardUsed(user_id, reward_id);
         return "OK";
+    }
+
+    public boolean promoIsMine(String promo, int reward_id){
+        if(!rewardRepository.promoIsMine(promo, reward_id).isEmpty()){
+            return true;
+        }
+        return false;
     }
 
 }

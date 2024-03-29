@@ -56,6 +56,9 @@ public interface RewardRepository extends CrudRepository<Reward, Integer> {
     @Query(value = "SELECT promo FROM rewards WHERE promo = :promo", nativeQuery = true)
     List<String> promoIsAvailable(@Param("promo")String promo);
 
+    @Query(value = "SELECT promo FROM rewards WHERE promo = :promo AND reward_id = :reward_id", nativeQuery = true)
+    List<String> promoIsMine(@Param("promo")String promo, @Param("reward_id")int reward_id);
+
     @Query(value = "SELECT user_id FROM user_and_reward WHERE user_id = :user_id AND reward_id = :reward_id", nativeQuery = true)
     List<Integer> userHasReward(@Param("user_id")int user_id, @Param("reward_id")int reward_id);
 
