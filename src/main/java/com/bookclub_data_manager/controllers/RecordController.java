@@ -1,5 +1,6 @@
 package com.bookclub_data_manager.controllers;
 
+import com.bookclub_data_manager.services.meeting.MeetingService;
 import com.bookclub_data_manager.services.meeting.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,6 +20,9 @@ public class RecordController {
 
     @Autowired
     RecordService recordService;
+
+    @Autowired
+    MeetingService meetingService;
 
     @PostMapping("/add")
     public ResponseEntity add(@RequestParam("meeting_id") int meeting_id,
@@ -48,13 +53,30 @@ public class RecordController {
         }
     }
 
-    @PostMapping("/update")
-    public ResponseEntity update(@RequestParam("rating") Float rating,
-                                 @RequestParam("user_id") int user_id,
-                                 @RequestParam("is_passed") Boolean is_passed){
+    @PostMapping("/updateRating")
+    public ResponseEntity updateRating(@RequestParam("rating") Float rating,
+                                 @RequestParam("user_id") int user_id){
 
+        String requestRating = recordService.updateRecordRating(rating, user_id);
 
+        if (Objects.equals(requestRating, "OK")) {
+            return new ResponseEntity("Рейтинг встречи обновлен", HttpStatus.OK);
+        } else {
+            return new ResponseEntity(requestRating, HttpStatus.BAD_REQUEST);
+        }
+    }
 
+    @PostMapping("/updateDatetime")
+    public ResponseEntity updateRating(@RequestParam("meeting_id") int meeting_id){
+
+        Date datetime = meetingService.getDatetime(meeting_id);
+        String requestPassed = recordService.updateRecordPassed(datetime);
+
+        if (Objects.equals(requestPassed, "OK")) {
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            return new ResponseEntity(requestPassed, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/getForMeeting")
@@ -82,7 +104,7 @@ public class RecordController {
     }
 
     @PostMapping("/getAll")
-    public ResponseEntity getForMeeting() {
+    public ResponseEntity getAll() {
 
         List<Record> result = recordService.getAllRecords();
 

@@ -28,6 +28,10 @@ public class MeetingService {
         return "OK";
     }
 
+    public Date getDatetime(int meeting_id) {
+        return meetingRepository.getDatetime(meeting_id);
+    }
+
     public Meeting getMeeting(int meeting_id) {
         return meetingRepository.getMeetingById(meeting_id);
     }

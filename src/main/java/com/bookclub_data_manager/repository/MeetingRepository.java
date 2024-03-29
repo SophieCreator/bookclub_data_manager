@@ -20,6 +20,9 @@ public interface MeetingRepository extends CrudRepository<Meeting, Integer> {
     @Query(value = "SELECT * FROM meetings", nativeQuery = true)
     List<Meeting> getAllMeetings();
 
+    @Query(value = "SELECT datetime FROM meetings WHERE meeting_id = :meeting_id", nativeQuery = true)
+    Date getDatetime(@Param("meeting_id") int meeting_id);
+
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO meetings (book_id, place, datetime, price) VALUES (:book_id, :place, :datetime, :price)", nativeQuery = true)

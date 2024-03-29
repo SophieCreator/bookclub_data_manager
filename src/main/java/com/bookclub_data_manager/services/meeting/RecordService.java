@@ -24,9 +24,9 @@ public class RecordService {
 
         LocalDateTime currentDateTime = java.time.LocalDateTime.now();
 
-        if (currentDateTime.isEqual(datetime.toLocalDate().atTime(LocalTime.MIDNIGHT))) ;
-
-        recordRepository.updateRecordPassed(true);
+        if (currentDateTime.isEqual(datetime.toLocalDate().atTime(LocalTime.MIDNIGHT))) {
+            recordRepository.updateRecordPassed(true);
+        }
 
         return "OK";
     }
