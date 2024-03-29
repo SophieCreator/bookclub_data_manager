@@ -1,7 +1,8 @@
 package com.bookclub_data_manager.controllers;
 
+import com.bookclub_data_manager.models.MyRecord;
 import com.bookclub_data_manager.services.meeting.MeetingService;
-import com.bookclub_data_manager.services.meeting.RecordService;
+import com.bookclub_data_manager.services.meeting.MyRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,10 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("app/record")
-public class RecordController {
+public class MyRecordController {
 
     @Autowired
-    RecordService recordService;
+    MyRecordService recordService;
 
     @Autowired
     MeetingService meetingService;
@@ -42,8 +43,8 @@ public class RecordController {
     public ResponseEntity delete(@RequestParam("meeting_id") int meeting_id,
                                  @RequestParam("user_id") int user_id) {
 
-        String requestMeeting = recordService.deleteRecordByMeeting(meeting_id);
-        String requestUser = recordService.deleteRecordByUser(user_id);
+        String requestMeeting = recordService.deleteMyRecordByMeeting(meeting_id);
+        String requestUser = recordService.deleteMyRecordByUser(user_id);
 
         if (Objects.equals(requestMeeting, "OK")) {
             return new ResponseEntity("Запись на встречу успешно удалена", HttpStatus.OK);
@@ -58,7 +59,7 @@ public class RecordController {
     public ResponseEntity updateRating(@RequestParam("rating") Float rating,
                                  @RequestParam("user_id") int user_id){
 
-        String requestRating = recordService.updateRecordRating(rating, user_id);
+        String requestRating = recordService.updateMyRecordRating(rating, user_id);
 
         if (Objects.equals(requestRating, "OK")) {
             return new ResponseEntity("Рейтинг встречи обновлен", HttpStatus.OK);
@@ -71,7 +72,7 @@ public class RecordController {
     public ResponseEntity updateRating(@RequestParam("meeting_id") int meeting_id){
 
         Date datetime = meetingService.getDatetime(meeting_id);
-        String requestPassed = recordService.updateRecordPassed(datetime);
+        String requestPassed = recordService.updateMyRecordPassed(datetime);
 
         if (Objects.equals(requestPassed, "OK")) {
             return new ResponseEntity(HttpStatus.OK);
@@ -83,7 +84,7 @@ public class RecordController {
     @PostMapping("/getForMeeting")
     public ResponseEntity getForMeeting(@RequestParam("meeting_id") int meeting_id){
 
-        List<Record> requestMeeting = recordService.getRecordsByMeeting(meeting_id);
+        List<MyRecord> requestMeeting = recordService.getMyRecordsByMeeting(meeting_id);
 
         if (requestMeeting == null){
             return new ResponseEntity("Данных о записях на встречи нет", HttpStatus.BAD_REQUEST);
@@ -95,7 +96,7 @@ public class RecordController {
     @PostMapping("/getForUser")
     public ResponseEntity getForUser(@RequestParam("user_id") int user_id){
 
-        List<Record> requestUser = recordService.getRecordsByUser(user_id);
+        List<MyRecord> requestUser = recordService.getMyRecordsByUser(user_id);
 
         if (requestUser == null){
             return new ResponseEntity("Данных о записях на встречу нет", HttpStatus.BAD_REQUEST);
@@ -107,7 +108,7 @@ public class RecordController {
     @PostMapping("/getAll")
     public ResponseEntity getAll() {
 
-        List<Record> result = recordService.getAllRecords();
+        List<MyRecord> result = recordService.getAllMyRecords();
 
         if (result == null){
             return new ResponseEntity("Список встреч пуст", HttpStatus.BAD_REQUEST);

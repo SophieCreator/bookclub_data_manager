@@ -1,10 +1,12 @@
 package com.bookclub_data_manager.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "records")
-public class Record {
+public class MyRecord {
 
     @Id
     private int record_id;

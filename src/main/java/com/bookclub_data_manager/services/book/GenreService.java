@@ -67,7 +67,6 @@ public class GenreService {
         return genreRepository.getGenres(book_id);
     }
 
-
     public Integer getIdByName(String name){
         return genreRepository.getIdByName(name);
     }

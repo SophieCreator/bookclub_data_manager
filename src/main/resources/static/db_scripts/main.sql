@@ -82,11 +82,28 @@ CREATE TABLE tasks(
     PRIMARY KEY(task_id)
 );
 
+CREATE TABLE incomes(
+    income_id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    amount INT NOT NULL,
+    dateGet DATE NOT NULL,
+    PRIMARY KEY(income_id)
+);
+
+CREATE TABLE expenses(
+    expense_id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    amount INT NOT NULL,
+    dateGet DATE NOT NULL,
+    is_regular VARCHAR(1) NOT NULL,
+    PRIMARY KEY(expense_id)
+);
+
 CREATE TABLE records(
     record_id INT NOT NULL AUTO_INCREMENT,
      meeting_id INT NOT NULL,
      user_id INT NOT NULL,
-     is_passed BOOLEAN,
+     is_passed name VARCHAR(1),
      rating FLOAT,
      price INT NOT NULL,
      PRIMARY KEY (record_id)
