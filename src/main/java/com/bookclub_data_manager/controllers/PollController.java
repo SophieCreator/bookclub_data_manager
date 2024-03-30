@@ -105,6 +105,7 @@ public class PollController {
         return new ResponseEntity(allPollGetResponse, HttpStatus.OK);
     }
 
+
     @PostMapping("/getAllForUser")
     public ResponseEntity getAllForUser(@RequestParam("user_id") int user_id) {
         List<Poll> polls = pollService.getAllUserPolls(user_id);
