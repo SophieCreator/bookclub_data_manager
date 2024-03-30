@@ -94,6 +94,7 @@ public class PollController {
         return new ResponseEntity("Вы проголосовали", HttpStatus.OK);
     }
 
+
     @PostMapping("/getAll")
     public ResponseEntity getAll() {
 
