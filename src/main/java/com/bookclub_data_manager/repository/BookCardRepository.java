@@ -1,9 +1,6 @@
 package com.bookclub_data_manager.repository;
 
-
-import com.bookclub_data_manager.models.Author;
 import com.bookclub_data_manager.models.Book;
-import com.bookclub_data_manager.models.Genre;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

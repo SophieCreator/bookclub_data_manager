@@ -105,7 +105,7 @@ CREATE TABLE records(
      user_id INT NOT NULL,
      is_passed BOOLEAN,
      rating FLOAT,
-     price INT NOT NULL,
+     price INT,
      sale INT,
      PRIMARY KEY (record_id)
 );
