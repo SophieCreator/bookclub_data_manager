@@ -97,6 +97,7 @@ public class BookCardController {
         if (authors.isEmpty()){
             return new ResponseEntity("Нет данных по авторам", HttpStatus.BAD_REQUEST);
         }
+
         List<Genre> genres = genreService.getGenres(book_id);
         BookCardResponse bookCardResponse = new BookCardResponse(book, authors, genres);
 

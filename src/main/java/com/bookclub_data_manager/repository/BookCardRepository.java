@@ -69,5 +69,4 @@ public interface BookCardRepository extends CrudRepository<Book, Integer> {
     @Query(value = "DELETE FROM book_and_genre WHERE book_id = :book_id", nativeQuery = true)
     void unsetBookAndGenre(@Param("book_id")int book_id);
 
-
 }

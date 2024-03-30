@@ -105,7 +105,7 @@ public class MeetingController {
 
         List<Meeting> meetings = meetingService.getAllMeetings();
 
-        if (meetings == null){
+        if (meetings.isEmpty()){
             return new ResponseEntity("Список встреч пуст", HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity(meetings, HttpStatus.OK);

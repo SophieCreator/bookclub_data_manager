@@ -157,3 +157,23 @@ CREATE TABLE user_and_test(
     test_id INT NOT NULL,
     estimation DOUBLE
 );
+
+CREATE TABLE test(
+    test_id INT NOT NULL AUTO_INCREMENT,
+    test_name VARCHAR(60),
+    complexity VARCHAR(60)
+);
+
+CREATE TABLE question(
+    question_id INT NOT NULL AUTO_INCREMENT,
+    question_name VARCHAR(60),
+    var1 VARCHAR(60),
+    var2 VARCHAR(60),
+    var3 VARCHAR(60),
+    var4 VARCHAR(60)
+)
+
+CREATE TABLE test_and_question(
+    test_id INT NOT NULL,
+    question_id INT NOT NULL
+);
