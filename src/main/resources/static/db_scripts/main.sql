@@ -166,11 +166,11 @@ CREATE TABLE test(
 
 CREATE TABLE question(
     question_id INT NOT NULL AUTO_INCREMENT,
-    question_name VARCHAR(60),
-    var1 VARCHAR(60),
-    var2 VARCHAR(60),
-    var3 VARCHAR(60),
-    var4 VARCHAR(60)
+    question_name VARCHAR(200) NOT NULL,
+    var1 VARCHAR(60) NOT NULL,
+    var2 VARCHAR(60) NOT NULL,
+    var3 VARCHAR(60) NOT NULL,
+    var4 VARCHAR(60) NOT NULL
 )
 
 CREATE TABLE test_and_question(

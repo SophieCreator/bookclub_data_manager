@@ -53,7 +53,7 @@ public interface TestRepository extends CrudRepository<Test, Integer> {
     @Query(value = "UPDATE tests SET complexity = :complexity WHERE test_id = :test_id", nativeQuery = true)
     void updateComplexity(@Param("complexity")String complexity, @Param("test_id")int test_id);
 
-    @Query(value = "INSERT INTO user_and_test (user_id, test_id, estimation) VALUES (:user_id, :test_id, estimation)", nativeQuery = true)
+    @Query(value = "INSERT INTO user_and_test (user_id, test_id, estimation) VALUES (:user_id, :test_id, :estimation)", nativeQuery = true)
     int addRatingForUser(@Param("user_id")int user_id, @Param("test_id")int test_id, @Param("estimation")double estimation);
 
     @Query(value = "SELECT SUM(user_id) FROM user_and_test WHERE test_id = :test_id", nativeQuery = true)
