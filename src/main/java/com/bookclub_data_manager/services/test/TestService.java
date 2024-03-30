@@ -35,4 +35,26 @@ public class TestService {
     public List<Test> getAllTests() {
         return testRepository.getAllTests();
     }
+
+    public void updateComplexity(){
+        List<Test> tests = testRepository.getAllTests();
+        for(Test test : tests){
+            String complexity;
+            int amount = testRepository.getAmountPeopleSolved(test.getTest_id());
+            if (amount < 10){
+                complexity = "новый тест";
+            } else {
+                double score = testRepository.averageScore(test.getTest_id());
+                if (score > 90){
+                    complexity = "лёгкий уровень";
+                } else if (score > 60){
+                    complexity = "средний уровень";
+                } else {
+                    complexity = "сложный уровень";
+                }
+            }
+            test.setComplexity(complexity);
+        }
+    }
+
 }

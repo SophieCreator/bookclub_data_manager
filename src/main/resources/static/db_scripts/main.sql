@@ -151,3 +151,9 @@ CREATE TABLE user_and_poll(
     user_id INT NOT NULL,
     poll_id INT NOT NULL
 );
+
+CREATE TABLE user_and_test(
+    user_id INT NOT NULL,
+    test_id INT NOT NULL,
+    estimation DOUBLE
+);

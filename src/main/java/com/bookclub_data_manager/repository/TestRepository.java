@@ -26,10 +26,17 @@ public interface TestRepository {
     @Modifying
     @Transactional
     @Query(value = "UPDATE tests SET test_name = :test_name WHERE test_id = :test_id", nativeQuery = true)
-    void updateTest(@Param("test_name")String test_name,, @Param("test_id")int test_id);
+    void updateTest(@Param("test_name")String test_name, @Param("test_id")int test_id);
 
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM tests WHERE test_id = :test_id", nativeQuery = true)
     void deleteTest(@Param("test_id")int test_id);
+
+    @Query(value = "SELECT SUM(user_id) FROM user_and_test WHERE test_id = :test_id", nativeQuery = true)
+    int getAmountPeopleSolved(@Param("test_id")int test_id);
+
+    @Query(value = "(SELECT SUM(estimation) FROM user_and_test WHERE test_id = :test_id) / (SELECT SUM(user_id) FROM user_and_test WHERE test_id = :test_id)", nativeQuery = true)
+    double averageScore(@Param("test_id")int test_id);
+
 }
