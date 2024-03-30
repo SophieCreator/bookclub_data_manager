@@ -103,9 +103,10 @@ CREATE TABLE records(
     record_id INT NOT NULL AUTO_INCREMENT,
      meeting_id INT NOT NULL,
      user_id INT NOT NULL,
-     is_passed name VARCHAR(1),
+     is_passed BOOLEAN,
      rating FLOAT,
      price INT NOT NULL,
+     sale INT,
      PRIMARY KEY (record_id)
 );
 
@@ -113,7 +114,7 @@ CREATE TABLE rewards(
      reward_id INT NOT NULL AUTO_INCREMENT,
      name VARCHAR(200) NOT NULL,
      reason VARCHAR(300),
-     promo VARCHAR(30),
+     promo VARCHAR(30) UNIQUE,
      image VARCHAR(30),
      tests_required INT,
      meetings_required INT,
@@ -125,4 +126,28 @@ CREATE TABLE user_and_reward(
     user_id INT NOT NULL,
     reward_id INT NOT NULL,
     is_used BOOLEAN
+);
+
+CREATE TABLE polls(
+     poll_id INT NOT NULL AUTO_INCREMENT,
+     question VARCHAR(200) NOT NULL,
+     var1 VARCHAR(100) NOT NULL,
+     var2 VARCHAR(100) NOT NULL,
+     var3 VARCHAR(100) NOT NULL,
+     var4 VARCHAR(100) NOT NULL,
+     counter1 INT,
+     counter2 INT,
+     counter3 INT,
+     counter4 INT,
+     counterN1 INT,
+     counterN2 INT,
+     counterN3 INT,
+     counterN4 INT,
+     is_active BOOLEAN,
+     PRIMARY KEY (poll_id)
+);
+
+CREATE TABLE user_and_poll(
+    user_id INT NOT NULL,
+    poll_id INT NOT NULL
 );
