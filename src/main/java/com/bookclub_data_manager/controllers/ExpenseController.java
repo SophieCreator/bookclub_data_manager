@@ -23,12 +23,13 @@ public class ExpenseController {
 
     @PostMapping("/add")
     public ResponseEntity addExpense(@RequestParam String name,
+                                     @RequestParam String url,
                                      @RequestParam int amount,
                                      @RequestParam Date date,
                                      @RequestParam String is_regular){
 
 
-        String request = expenseService.add(name,amount, date, is_regular);
+        String request = expenseService.add(name,url, amount, date, is_regular);
         if (Objects.equals(request, "OK")) {
             return new ResponseEntity("Расход успешно добавлен", HttpStatus.CREATED);
         } else {
@@ -48,14 +49,15 @@ public class ExpenseController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity updateExpense(@RequestParam String name, 
+    public ResponseEntity updateExpense(@RequestParam String name,
+                                        @RequestParam String url,
                                         @RequestParam int amount, 
                                         @RequestParam Date date, 
                                         @RequestParam String is_regular, 
                                         @RequestParam int expense_id){
 
 
-        String request = expenseService.update(name,amount, date, is_regular, expense_id);
+        String request = expenseService.update(name, url, amount, date, is_regular, expense_id);
         if (Objects.equals(request, "OK")) {
             return new ResponseEntity("Расход успешно обновлен", HttpStatus.OK);
         } else {

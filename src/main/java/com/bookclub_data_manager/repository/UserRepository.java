@@ -1,6 +1,8 @@
 package com.bookclub_data_manager.repository;
 
+import com.bookclub_data_manager.models.Book;
 import com.bookclub_data_manager.models.User;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,7 +19,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     List<String> doesEmailExist(@Param("email")String email);
 
     @Query(value = "SELECT password FROM users WHERE user_id = :user_id", nativeQuery = true)
-    String getPassword(@Param("user_id")int user_id);
+    String getPassword(@Param("user_id")Integer user_id);
 
     @Query(value = "SELECT login FROM users WHERE login = :login", nativeQuery = true)
     List<String> doesLoginExist(@Param("login")String email);
@@ -58,5 +60,13 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query(value = "SELECT login FROM users WHERE user_id = :user_id AND login = :login", nativeQuery = true)
     List<String> loginIsMy(@Param("user_id")int user_id, @Param("login")String login);
 
+    @Query(value = "SELECT book_id FROM favourite_books WHERE user_id = :user_id", nativeQuery = true)
+    List<Integer> getFavouriteBooksById(@Param("user_id")int user_id);
+
+    @Query(value = "SELECT author_id FROM favourite_authors WHERE user_id = :user_id", nativeQuery = true)
+    List<Integer> getFavouriteAuthorsById(@Param("user_id")int user_id);
+
+    @Query(value = "SELECT genre_id FROM favourite_genres WHERE user_id = :user_id", nativeQuery = true)
+    List<Integer> getFavouriteGenresById(@Param("user_id")int user_id);
 }
 

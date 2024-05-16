@@ -14,11 +14,11 @@ public class TaskService {
     @Autowired
     TaskRepository taskRepository;
 
-    public String add(int user_id, String task_name, String task_text, Date deadline, String is_done){
+    public String add(String task_name, String task_text, Date deadline, String is_done, int user_id){
         if (task_name == null){
             return "Название задачи пустое";
         }
-        taskRepository.add(user_id, task_name, task_text, deadline, is_done);
+        taskRepository.add(task_name, task_text, deadline, is_done, user_id);
         return "OK";
     }
 
@@ -41,9 +41,16 @@ public class TaskService {
         return "OK";
     }
 
+
     public List<Task> getAllTasks(){
         return taskRepository.getAllTasks();
     }
+
+    public List<Task> getAllTasksByUser(int user_id){
+        return taskRepository.getAllTasksByUser(user_id);
+    }
+
+
 
     public Task getTaskById(int id){
         return taskRepository.getTaskById(id);

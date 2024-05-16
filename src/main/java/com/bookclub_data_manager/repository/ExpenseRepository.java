@@ -26,8 +26,8 @@ public interface ExpenseRepository extends CrudRepository<Expense, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO expenses (name, amount, date_get, is_regular) VALUES (:name, :amount, :date_get, :is_regular)", nativeQuery = true)
-    void add(@Param("name")String name, @Param("amount")int amount, @Param("date_get") Date date_get, @Param("is_regular") String is_regular);
+    @Query(value = "INSERT INTO expenses (name, url, amount, date_get, is_regular) VALUES (:name, :url, :amount, :date_get, :is_regular)", nativeQuery = true)
+    void add(@Param("name")String name, @Param("url")String url, @Param("amount")int amount, @Param("date_get") Date date_get, @Param("is_regular") String is_regular);
 
     @Modifying
     @Transactional
@@ -36,8 +36,8 @@ public interface ExpenseRepository extends CrudRepository<Expense, Integer> {
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE expenses SET name = :name, amount = :amount, date_get = :date_get, is_regular = :is_regular WHERE expense_id = :expense_id", nativeQuery = true)
-    void update(@Param("name")String name, @Param("amount")int amount, @Param("date_get") Date date_get, @Param("is_regular") String is_regular, @Param("expense_id")int expense_id);
+    @Query(value = "UPDATE expenses SET name = :name, url = :url, amount = :amount, date_get = :date_get, is_regular = :is_regular WHERE expense_id = :expense_id", nativeQuery = true)
+    void update(@Param("name")String name, @Param("url")String url, @Param("amount")int amount, @Param("date_get") Date date_get, @Param("is_regular") String is_regular, @Param("expense_id")int expense_id);
 
 
 

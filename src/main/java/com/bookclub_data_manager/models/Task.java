@@ -12,7 +12,7 @@ public class Task {
 
     @Id
     private int task_id;
-    private int user_id;
+    private Integer user_id;
     private String task_name;
     private String task_text;
     private Date deadline;

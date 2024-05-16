@@ -19,10 +19,13 @@ public interface TaskRepository extends CrudRepository<Task, Integer> {
     @Query(value = "SELECT * FROM tasks", nativeQuery = true)
     List<Task> getAllTasks();
 
+    @Query(value = "SELECT * FROM tasks WHERE user_id = :user_id", nativeQuery = true)
+    List<Task> getAllTasksByUser(@Param("user_id")int user_id);
+
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO tasks (user_id, task_name, task_text, deadline, is_done) VALUES (:user_id, :task_name, :task_text, :deadline, :is_done)", nativeQuery = true)
-    void add(@Param("user_id")int user_id, @Param("task_name")String task_name, @Param("task_text")String task_text, @Param("deadline") Date deadline, @Param("is_done")String is_done);
+    @Query(value = "INSERT INTO tasks (task_name, task_text, deadline, is_done, user_id) VALUES (:task_name, :task_text, :deadline, :is_done, :user_id)", nativeQuery = true)
+    void add(@Param("task_name")String task_name, @Param("task_text")String task_text, @Param("deadline") Date deadline, @Param("is_done")String is_done, @Param("user_id")int user_id);
 
     @Modifying
     @Transactional

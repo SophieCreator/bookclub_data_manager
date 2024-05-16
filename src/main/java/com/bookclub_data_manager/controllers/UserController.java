@@ -2,6 +2,11 @@ package com.bookclub_data_manager.controllers;
 
 import com.bookclub_data_manager.dto.requests.LoginRequest;
 import com.bookclub_data_manager.dto.responses.AuthResponse;
+import com.bookclub_data_manager.dto.responses.BookCardResponse;
+import com.bookclub_data_manager.dto.responses.UserInfoResponse;
+import com.bookclub_data_manager.models.Author;
+import com.bookclub_data_manager.models.Book;
+import com.bookclub_data_manager.models.Genre;
 import com.bookclub_data_manager.models.User;
 import com.bookclub_data_manager.services.JwtTokenService;
 import com.bookclub_data_manager.services.auth.MyCustomUserDetailService;
@@ -18,6 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -111,11 +117,8 @@ public class UserController {
     }
 
     @PostMapping("/get")
-    public ResponseEntity get(@RequestParam("user_id") int user_id){
+    public ResponseEntity get(@RequestParam("user_id") Integer user_id){
         User user = userService.getUserById(user_id);
-        if (user == null){
-            return new ResponseEntity("Пользователь не найден", HttpStatus.BAD_REQUEST);
-        }
         return new ResponseEntity(user, HttpStatus.OK);
     }
 
@@ -125,6 +128,34 @@ public class UserController {
         if (users.isEmpty()){
             return new ResponseEntity("Список пустой", HttpStatus.BAD_REQUEST);
         }
+        return new ResponseEntity(users, HttpStatus.OK);
+    }
+
+    @PostMapping("/getAllInfo")
+    public ResponseEntity getAllInfo(){
+        List<User> users = userService.getAll();
+        List<UserInfoResponse> userInfoResponses = new ArrayList<>();
+
+        for (User user : users){
+            List<Book> books = userService.getFavouriteBooksById(user.getUser_id());
+            List<Author> authors = userService.getFavouriteAuthorsById(user.getUser_id());
+            List<Genre> genres = userService.getFavouriteGenresById(user.getUser_id());
+            String visited_meetings = userService.visited(user.getUser_id());
+
+            UserInfoResponse userInfoResponse = new UserInfoResponse(user, books, authors, genres, visited_meetings);
+            userInfoResponses.add(userInfoResponse);
+        }
+
+        if(userInfoResponses == null){
+            return new ResponseEntity("Нет пользователей", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity(userInfoResponses, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/getUsersByIds")
+    public ResponseEntity getUsersByIds(@RequestParam("user_ids") List<Integer> ids){
+        List<User> users = userService.getUserByIds(ids);
         return new ResponseEntity(users, HttpStatus.OK);
     }
 

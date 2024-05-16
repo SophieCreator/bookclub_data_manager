@@ -11,19 +11,29 @@ import java.sql.Date;
 public class Expense {
 
     @Id
-    private int income_id;
+    private int expense_id;
     private String name;
-    private Date date;
 
-    private int sum;
+    private String url;
+    private Date date_get;
+
+    private int amount;
     String is_regular;
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public int getIncome_id() {
-        return income_id;
+        return expense_id;
     }
 
     public void setIncome_id(int income_id) {
-        this.income_id = income_id;
+        this.expense_id = income_id;
     }
 
     public String getName() {
@@ -35,19 +45,19 @@ public class Expense {
     }
 
     public Date getDate() {
-        return date;
+        return date_get;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(Date date_get) {
+        this.date_get = date_get;
     }
 
     public int getSum() {
-        return sum;
+        return amount;
     }
 
-    public void setSum(int sum) {
-        this.sum = sum;
+    public void setSum(int amount) {
+        this.amount = amount;
     }
 
     public String getIs_regular() {

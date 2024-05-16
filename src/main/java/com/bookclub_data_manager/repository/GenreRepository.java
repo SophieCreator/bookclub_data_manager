@@ -17,6 +17,8 @@ public interface GenreRepository extends CrudRepository<Genre, Integer> {
 
     @Query(value = "SELECT * FROM genres", nativeQuery = true)
     List<Genre> getAllGenres();
+    @Query(value = "SELECT * FROM genres WHERE genre_id = :genre_id", nativeQuery = true)
+    Genre getGenre(@Param("genre_id")int genre_id);
 
     @Query(value = "SELECT * FROM genres WHERE genre_id IN (SELECT genre_id FROM book_and_genre WHERE book_id = :book_id)", nativeQuery = true)
     List<Genre> getGenres(@Param("book_id")int book_id);

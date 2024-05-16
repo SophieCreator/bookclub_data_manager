@@ -14,11 +14,11 @@ public class ExpenseService {
     @Autowired
     ExpenseRepository expenseRepository;
 
-    public String add(String name, Integer amount, Date date, String is_regular){
+    public String add(String name, String url, Integer amount, Date date, String is_regular){
         if (name == null || amount == null){
             return "Пустая строка";
         }
-        expenseRepository.add(name, amount, date, is_regular);
+        expenseRepository.add(name, url, amount, date, is_regular);
         return "OK";
     }
 
@@ -30,11 +30,11 @@ public class ExpenseService {
         return "OK";
     }
 
-    public String update(String name, int amount, Date date, String is_regular, Integer id){
+    public String update(String name, String url, int amount, Date date, String is_regular, Integer id){
         if (id == null){
             return "Нет идентификатора";
         }
-        expenseRepository.update(name, amount, date, is_regular, id);
+        expenseRepository.update(name, url, amount, date, is_regular, id);
         return "OK";
     }
 

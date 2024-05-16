@@ -20,12 +20,11 @@ public class TaskController {
     TaskService taskService;
 
     @PostMapping("/add")
-    public ResponseEntity addTask(@RequestParam("user_id") int user_id,
-                                  @RequestParam("task_name") String task_name,
+    public ResponseEntity addTask(@RequestParam("task_name") String task_name,
                                   @RequestParam("task_text") String task_text,
                                   @RequestParam("deadline") Date deadline) {
 
-        String request = taskService.add(user_id, task_name, task_text, deadline, "0");
+        String request = taskService.add(task_name, task_text, deadline, "0", -1);
         if(!Objects.equals(request, "OK")){
             return new ResponseEntity(request, HttpStatus.BAD_REQUEST);
         }
@@ -72,7 +71,17 @@ public class TaskController {
 
         List<Task> tasks = taskService.getAllTasks();
         if(tasks.isEmpty()){
-            return new ResponseEntity("Ошибка", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(null, HttpStatus.OK);
+        }
+        return new ResponseEntity(tasks, HttpStatus.OK);
+    }
+
+    @PostMapping("/getAllByUser")
+    public ResponseEntity getAllTaskByUser(@RequestParam("user_id") int user_id) {
+
+        List<Task> tasks = taskService.getAllTasksByUser(user_id);
+        if(tasks.isEmpty()){
+            return new ResponseEntity("Список пустой", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(tasks, HttpStatus.OK);
     }
