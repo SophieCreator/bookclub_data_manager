@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -71,7 +72,7 @@ public class MyRecordController {
     @PostMapping("/updateDatetime")
     public ResponseEntity updateRating(@RequestParam("meeting_id") int meeting_id){
 
-        Date datetime = meetingService.getDatetime(meeting_id);
+        LocalDateTime datetime = meetingService.getDatetime(meeting_id);
         String requestPassed = recordService.updateMyRecordPassed(datetime);
 
         if (Objects.equals(requestPassed, "OK")) {

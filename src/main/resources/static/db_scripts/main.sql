@@ -66,7 +66,7 @@ CREATE TABLE favourite_genres(
 CREATE TABLE meetings(
     meeting_id INT NOT NULL AUTO_INCREMENT,
     book_id INT NOT NULL,
-    place VARCHAR(40) NOT NULL UNIQUE,
+    place VARCHAR(40) NOT NULL,
     datetime DATE NOT NULL,
     price INT NOT NULL,
     PRIMARY KEY(meeting_id)
@@ -101,9 +101,9 @@ CREATE TABLE expenses(
 );
 
 CREATE TABLE records(
-    record_id INT NOT NULL AUTO_INCREMENT,
+     record_id INT NOT NULL AUTO_INCREMENT,
      meeting_id INT NOT NULL,
-     user_id INT NOT NULL,
+     user_id INT,
      is_passed BOOLEAN,
      rating FLOAT,
      price INT,

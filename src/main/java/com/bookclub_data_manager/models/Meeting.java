@@ -5,6 +5,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "meetings")
@@ -12,10 +14,9 @@ public class Meeting {
 
     @Id
     private int meeting_id;
-
     private int book_id;
     private String place;
-    private Date datetime;
+    private LocalDateTime datetime;
     private int price;
 
     public int getMeeting_id() {
@@ -42,11 +43,11 @@ public class Meeting {
         this.place = place;
     }
 
-    public Date getDatetime() {
+    public LocalDateTime getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(Date datetime) {
+    public void setDatetime(LocalDateTime datetime) {
         this.datetime = datetime;
     }
 

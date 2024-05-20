@@ -22,6 +22,9 @@ public interface MyRecordRepository extends CrudRepository<MyRecord, Integer> {
     @Query(value = "SELECT * FROM records WHERE meeting_id = :meeting_id", nativeQuery = true)
     List<MyRecord> getMyRecordsByMeeting(@Param("meeting_id")int meeting_id);
 
+    @Query(value = "SELECT user_id FROM records WHERE meeting_id = :meeting_id", nativeQuery = true)
+    List<Integer> getUserIdsByMeeting(@Param("meeting_id")int meeting_id);
+
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO records (record_id, meeting_id, user_id) VALUES (:record_id, :meeting_id, :user_id)", nativeQuery = true)

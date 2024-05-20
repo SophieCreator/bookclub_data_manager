@@ -1,6 +1,6 @@
 package com.bookclub_data_manager.dto.requests;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UpdateMeetingRequest {
@@ -10,7 +10,7 @@ public class UpdateMeetingRequest {
     private String book_name;
     private List<String> author;
     private String place;
-    private Date datetime;
+    private LocalDateTime datetime;
     private int price;
 
     public List<String> getAuthor() { return author; }
@@ -41,11 +41,11 @@ public class UpdateMeetingRequest {
         this.place = place;
     }
 
-    public Date getDatetime() {
+    public LocalDateTime getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(Date datetime) {
+    public void setDatetime(LocalDateTime datetime) {
         this.datetime = datetime;
     }
 
